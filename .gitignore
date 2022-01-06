@@ -1,0 +1,4 @@
+env/backend.env
+db/postgres-volume/**/
+db/postgres-volume/*.*
+.vscode/

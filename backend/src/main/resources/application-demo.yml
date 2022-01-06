@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: 'jdbc:h2:mem:home-jungle-db'
+  flyway:
+    locations: 'classpath:db-flyway-migration/h2'
