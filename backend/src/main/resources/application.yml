@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5433/home-jungle}
+    url: ${POSTGRES_URL}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   jpa:

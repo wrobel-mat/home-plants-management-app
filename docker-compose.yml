@@ -4,6 +4,7 @@ services:
         build:
             context: ./frontend
             dockerfile: Dockerfile
+            target: development
         image: home-jungle-frontend:dev
         container_name: frontend
         ports:
@@ -52,7 +53,7 @@ services:
         # ports:
         #   - '5432:5432'
         volumes:
-            - ./db/postgres-volume:/var/lib/postgresql/data
+            - home-jungle-db:/var/lib/postgresql/data
         networks:
             - backend
     rabbitmq:
@@ -65,5 +66,7 @@ services:
 networks:
     backend: {}
     frontend: {}
+volumes:
+    home-jungle-db:
 #
 # docker-compose up --build
