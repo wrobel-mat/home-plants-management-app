@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-jungle-config
+data:
+  postgres-db: home-jungle
+  postgres-url: jdbc:postgresql://postgres-service:5432/home-jungle
+  rabbitmq-host: rabbitmq-service
+  api-host: backend-service
+  api-port: '8080'
+  client-host: frontend-service
+  client-port: '3000'

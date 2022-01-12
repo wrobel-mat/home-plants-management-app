@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: vancoricomplex/backend-test:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: home-jungle-secrets
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: home-jungle-secrets
+              key: postgres-password
+        - name: POSTGRES_URL
+          valueFrom:
+            configMapKeyRef:
+              name: home-jungle-config
+              key: postgres-url
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: home-jungle-config
+              key: rabbitmq-host
+        - name: MAIL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: home-jungle-secrets
+              key: mail-host
+        - name: MAIL_PORT
+          valueFrom:
+            secretKeyRef:
+              name: home-jungle-secrets
+              key: mail-port
+        - name: MAIL_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: home-jungle-secrets
+              key: mail-username
+        - name: MAIL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: home-jungle-secrets
+              key: mail-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
