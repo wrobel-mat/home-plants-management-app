@@ -1,0 +1,53 @@
+### /etc/nginx/nginx.conf
+
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+
+    log_format devlogging '$remote_addr - $remote_user [$time_local] '
+    '"proxy_host" $proxy_host '
+    '"proxy_add_x_forwarded_for" $proxy_add_x_forwarded_for '
+    '"upstream_addr" $upstream_addr '
+    '"proxy_protocol_addr" $proxy_protocol_addr '
+    '"proxy_protocol_server_addr" $proxy_protocol_server_addr '
+    '"request_uri" $request_uri '
+    '"request" $request '
+    '"http_x_forwarded_for" $http_x_forwarded_for '
+    '"status" $status '
+    '"args" $args';
+
+    access_log /dev/stdout devlogging;
+}
+
+Sources:
+- custom log formatting: https://www.jeffryhouser.com/index.cfm/2021/5/18/How-to-debug-an-NGINX-Proxy-Config
+- config template + shell script: https://serverfault.com/a/919212
+- proxy pass rewrite fix: https://serverfault.com/questions/379675/nginx-reverse-proxy-url-rewrite#comment1387894_379679
+- docker compose setup example: https://github.com/LukeMwila/multi-container-nginx-react-node-mongo

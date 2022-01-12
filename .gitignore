@@ -1,5 +1,6 @@
-env/backend.env
-db/postgres-volume/**/
-db/postgres-volume/*.*
+docker-env/backend.*.env
+k8s-setup/secrets.yml
+docker-notes.md
+k8s-notes.md
 .vscode/
 .idea/

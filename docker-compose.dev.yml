@@ -1,6 +1,8 @@
 version: '3.9'
 services:
     frontend:
+        depends_on:
+            - backend
         build:
             context: ./frontend
             dockerfile: Dockerfile
@@ -10,15 +12,14 @@ services:
         ports:
             - '3000:3000'
         env_file:
-            - ./env/frontend.env
+            - ./docker-env/frontend.dev.env
         volumes:
             - ./frontend:/app
             - /app/node_modules
-        networks:
-            - frontend
-        depends_on:
-            - backend
     backend:
+        depends_on:
+            - postgres
+            - rabbitmq
         build:
             context: ./backend
             dockerfile: Dockerfile
@@ -36,37 +37,24 @@ services:
             - '5005:5005'
         #   - '8080:8080'
         env_file:
-            - ./env/backend.env
+            - ./docker-env/backend.dev.env
         volumes:
             - ./backend:/app
-        networks:
-            - frontend
-            - backend
-        depends_on:
-            - postgres
-            - rabbitmq
     postgres:
         image: postgres:14.1-alpine
         container_name: postgres
         env_file:
-            - ./env/postgres.env
+            - ./docker-env/postgres.env
         # ports:
         #   - '5432:5432'
         volumes:
-            - home-jungle-db:/var/lib/postgresql/data
-        networks:
-            - backend
+            - home-jungle-db-dev:/var/lib/postgresql/data
     rabbitmq:
         image: rabbitmq:3.9-alpine
         container_name: rabbitmq
-        networks:
-            - backend
         # ports:
         #   - '5672:5672'
-networks:
-    backend: {}
-    frontend: {}
 volumes:
-    home-jungle-db:
+    home-jungle-db-dev:
 #
-# docker-compose up --build
+# docker-compose -f docker-compose.dev.yml up -d --build --remove-orphans

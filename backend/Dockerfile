@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM arm64v8/openjdk:17.0.1-jdk-slim-bullseye as base
+FROM arm64v8/openjdk:19-slim as base
 WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
@@ -10,8 +10,8 @@ COPY src ./src
 FROM base as development
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=default", "-Dspring-boot.run.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005\""]
 
-FROM base as test
-RUN ["./mvnw", "test"]
+# FROM base as test
+# RUN ["./mvnw", "test"]
 
 FROM base as build
 RUN ./mvnw package

@@ -23,7 +23,7 @@ function App() {
             })
             .catch((e) => setGreeting(e));
     });
-    return <div className="App">Docker test - {greeting}</div>;
+    return <div className="App">Docker development setup test - {greeting}</div>;
 }
 
 export default App;
