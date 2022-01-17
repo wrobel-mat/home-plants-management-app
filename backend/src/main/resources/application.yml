@@ -49,10 +49,10 @@ app:
     confirmation-token-expiration-time-min: 30
   security:
     jwt:
-      # access token expiration time = 5 min
-      access-token-expiration-time-millis: 300000
-      # refresh token expiration time = 15 min
-      refresh-token-expiration-time-millis: 900000
+      # access token expiration time = 1h
+      access-token-expiration-time-millis: 3600000
+      # refresh token expiration time = 24h
+      refresh-token-expiration-time-millis: 86400000
       secret: ${random.value}
   gcloud:
     project-id: ${GCLOUD_PROJECT_ID}
