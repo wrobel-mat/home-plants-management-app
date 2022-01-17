@@ -10,7 +10,7 @@ export default function Footer() {
       <ul className="footer-list">
         <li className="footer-list-item">
           <a
-            href="https://github.com/wrobel-mat/home-jungle"
+            href="https://github.com/wrobel-mat/home-plants-management-app"
             target="_blank"
             rel="noreferrer"
             className="footer-link"
