@@ -41,14 +41,23 @@ bucket4j:
       rate-limits:
         - bandwidths:
             - capacity: 5
-              time: 10
+              time: 1
               unit: seconds
-# JWT
-# access token expiration time = 5 min
-# refresh token expiration time = 15 min
 app:
+  user-registration:
+    # confirmation token expiration time = 30 min
+    confirmation-token-expiration-time-min: 30
   security:
     jwt:
+      # access token expiration time = 5 min
       access-token-expiration-time-millis: 300000
+      # refresh token expiration time = 15 min
       refresh-token-expiration-time-millis: 900000
       secret: ${random.value}
+  gcloud:
+    project-id: ${GCLOUD_PROJECT_ID}
+    storage-base-uri: ${GCLOUD_STORAGE_BASE_URI}
+    bucket-name: ${GCLOUD_BUCKET_NAME}
+  domain:
+    uri-prefix: ${DOMAIN_URI_PREFIX}
+    name: ${DOMAIN_NAME}

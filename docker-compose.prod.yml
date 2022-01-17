@@ -5,7 +5,7 @@ services:
             - frontend
             - backend
         restart: always
-        image: home-jungle-proxy:prod
+        image: home-jungle-proxy:production
         container_name: proxy
         build:
             context: ./proxy
@@ -21,7 +21,7 @@ services:
             context: ./frontend
             dockerfile: Dockerfile
             target: production
-        image: home-jungle-frontend:prod
+        image: home-jungle-frontend:production
         container_name: frontend
         # ports:
         #     - '3000:3000'
@@ -33,27 +33,16 @@ services:
             context: ./backend
             dockerfile: Dockerfile
             target: production
-        image: home-jungle-backend:prod
+        image: home-jungle-backend:production
         container_name: backend
         # ports:
         #    - '8080:8080'
         env_file:
             - ./docker-env/backend.prod.env
-    postgres:
-        image: postgres:14.1-alpine
-        container_name: postgres
-        env_file:
-            - ./docker-env/postgres.env
-        # ports:
-        #   - '5432:5432'
-        volumes:
-            - home-jungle-db-prod:/var/lib/postgresql/data
     rabbitmq:
         image: rabbitmq:3.9-alpine
         container_name: rabbitmq
         # ports:
         #   - '5672:5672'
-volumes:
-    home-jungle-db-prod:
 #
 # docker-compose -f docker-compose.prod.yml up -d --build --remove-orphans

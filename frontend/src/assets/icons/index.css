@@ -1,0 +1,16 @@
+.svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+  transform: scale(1);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.svg-header-logo {
+  font-size: 1.8rem;
+}
+
+.svg-footer-logo {
+  font-size: 2rem;
+}

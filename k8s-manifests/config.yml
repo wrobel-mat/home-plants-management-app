@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-jungle-config
+data:
+  domain-uri-prefix: https://
+  domain-name: homejungle.app
+  rabbitmq-host: rabbitmq-service
+  api-host: backend-service
+  api-port: '8080'
+  client-host: frontend-service
+  client-port: '3000'
+  google-application-credentials: /gcloud/home-jungle-338120-ceecfd084cec.json
+  gcloud-storage-base-uri: https://storage.googleapis.com

@@ -1,0 +1,7 @@
+.app-loader-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-s) 0;
+    width: 100%;
+}

@@ -1,0 +1,14 @@
+.error {
+  align-items: center;
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  justify-content: center;
+  line-height: var(--line-height-sm);
+  margin: 8px 0 4px;
+  padding: 1em 16px;
+  text-align: justify;
+}

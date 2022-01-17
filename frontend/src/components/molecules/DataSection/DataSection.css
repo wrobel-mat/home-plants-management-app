@@ -1,0 +1,57 @@
+.myaccount-section {
+  display: flex;
+  flex-direction: row;
+  padding: var(--spacing-l) 0;
+}
+
+.myaccount-section-data {
+  display: flex;
+  flex: 2 1 0;
+  flex-direction: row;
+  width: 100%;
+}
+
+.myaccount-section-button {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.myaccount-section-data-icon {
+  font-size: 36px;
+  margin: 0 48px 0 16px;
+}
+
+.myaccount-section-data-items-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.myaccount-section-data-items-container > div {
+  flex: 50%;
+}
+
+.myaccount-section-data-item {
+  display: block;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.myaccount-section-data-item-name {
+  color: var(--color-anthracite);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-heavy);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.myaccount-section-data-item-value {
+  color: var(--color-anthracite);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-light);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}

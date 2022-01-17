@@ -1,6 +1,14 @@
-docker-env/backend.*.env
-k8s-setup/secrets.yml
+# Secrets
+backend.*.env
+k8s-manifests/secrets.yml
+gcloud/
+
+# My notes
 docker-notes.md
 k8s-notes.md
+gcloud-notes.md
+workflow.md
+
+# IDE configs
 .vscode/
 .idea/

@@ -1,0 +1,16 @@
+.message-wrapper {
+  color: var(--color-anthracite);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: var(--font-size-m);
+  margin: 0 10vw;
+  line-height: var(--line-height-m);
+  padding: 44px;
+  text-align: center;
+}
+
+.message-wrapper > span {
+  font-weight: 600;
+}

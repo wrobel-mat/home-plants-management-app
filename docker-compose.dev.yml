@@ -7,7 +7,7 @@ services:
             context: ./frontend
             dockerfile: Dockerfile
             target: development
-        image: home-jungle-frontend:dev
+        image: home-jungle-frontend:development
         container_name: frontend
         ports:
             - '3000:3000'
@@ -31,11 +31,11 @@ services:
                 '-Dspring-boot.run.profiles=default',
                 '-Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"',
             ]
-        image: home-jungle-backend:dev
+        image: home-jungle-backend:development
         container_name: backend
         ports:
             - '5005:5005'
-        #   - '8080:8080'
+            - '8080:8080'
         env_file:
             - ./docker-env/backend.dev.env
         volumes:
@@ -44,17 +44,17 @@ services:
         image: postgres:14.1-alpine
         container_name: postgres
         env_file:
-            - ./docker-env/postgres.env
+            - ./docker-env/postgres.dev.env
         # ports:
         #   - '5432:5432'
         volumes:
-            - home-jungle-db-dev:/var/lib/postgresql/data
+            - home-jungle-db-development:/var/lib/postgresql/data
     rabbitmq:
         image: rabbitmq:3.9-alpine
         container_name: rabbitmq
         # ports:
         #   - '5672:5672'
 volumes:
-    home-jungle-db-dev:
+    home-jungle-db-development:
 #
 # docker-compose -f docker-compose.dev.yml up -d --build --remove-orphans

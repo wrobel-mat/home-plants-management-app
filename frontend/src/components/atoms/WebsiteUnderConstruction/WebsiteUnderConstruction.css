@@ -1,0 +1,16 @@
+.under-construction-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--spacing-l) 0;
+}
+
+.under-construction-icon {
+    font-size: 12rem;
+    padding: var(--spacing-m);
+}
+
+.under-construction-message {
+    font-size: 2rem;
+}

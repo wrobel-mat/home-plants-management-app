@@ -1,0 +1,14 @@
+.auth-section-container {
+  flex-basis: 35vw;
+  max-width: 35vw;
+  margin: 0 auto;
+  padding: var(--spacing-m) var(--spacing-m) var(--spacing-l);
+}
+
+.auth-section-header {
+  color: var(--color-anthracite);
+  font-size: var(--font-size-l);
+  font-weight: 600;
+  margin: 0;
+  line-height: var(--line-height-l);
+}

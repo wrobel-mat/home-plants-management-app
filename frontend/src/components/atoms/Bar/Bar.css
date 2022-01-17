@@ -1,0 +1,5 @@
+.bar {
+  border-top-style: solid;
+  border-top-width: var(--border-width-sm);
+  border-color: var(--color-bar);
+}

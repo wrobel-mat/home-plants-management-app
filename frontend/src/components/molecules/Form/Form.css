@@ -1,0 +1,11 @@
+.form {
+  margin-top: 16px;
+}
+
+.form-disclaimer {
+  color: var(--color-anthracite-light);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-xs);
+  margin-bottom: 16px;
+}

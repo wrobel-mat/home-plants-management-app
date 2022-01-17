@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS plants CASCADE;
 CREATE TABLE plants
 (
-    id               INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_id          INT REFERENCES users (id) ON DELETE CASCADE,
+    id               VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id          VARCHAR(36) REFERENCES users (id) ON DELETE CASCADE,
     name             VARCHAR(50) NOT NULL,
     species          VARCHAR(50),
     location         VARCHAR(50),
@@ -17,5 +17,5 @@ CREATE TABLE plants
     air_purification BOOLEAN,
     toxicity         BOOLEAN,
     date_created     BIGINT,
-    img_file_name    VARCHAR(200)
+    img_uri          VARCHAR(300)
 );

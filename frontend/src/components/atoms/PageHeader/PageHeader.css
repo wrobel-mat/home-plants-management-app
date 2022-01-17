@@ -1,0 +1,27 @@
+.page-header {
+  border-bottom: solid 1px var(--color-bar);
+  padding: 0 0 var(--spacing-l);
+}
+
+.page-header.centered {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-header-title {
+  color: var(--color-anthracite);
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+  line-height: var(--line-height-xxl);
+  margin: 0;
+}
+
+.page-header-description {
+  color: var(--color-anthracite);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}

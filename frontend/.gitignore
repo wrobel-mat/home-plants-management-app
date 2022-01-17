@@ -10,7 +10,6 @@
 
 # production
 /build
-Dockerfile.prod
 
 # misc
 .DS_Store
