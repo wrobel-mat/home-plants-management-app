@@ -21,10 +21,6 @@ server {
     proxy_set_header Host $http_host;
   }
 
-  location = /user/confirm {
-    proxy_pass http://frontend/;
-  }
-
   location / {
     proxy_pass http://frontend;
   }
