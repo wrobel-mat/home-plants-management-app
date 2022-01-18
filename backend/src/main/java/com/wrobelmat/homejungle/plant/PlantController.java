@@ -67,7 +67,6 @@ public class PlantController {
 
     @PatchMapping("/{id}")
     ResponseEntity<?> updatePlant(@RequestBody @Valid Plant plant,
-                                  @PathVariable("id") Long plantId,
                                   Authentication authentication) {
         Plant updatedPlant = plantService.updateUserPlant(authentication.getName(), plant);
         return ResponseEntity
