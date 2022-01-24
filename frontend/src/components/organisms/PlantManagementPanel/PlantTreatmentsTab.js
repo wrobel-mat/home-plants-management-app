@@ -8,24 +8,12 @@ import {
 import PlantTreatmentItem from "./PlantTreatmentItem";
 import { fertilizeIcon, replantIcon, waterCanIcon } from "assets/icons";
 
-export default function PlantTreatmentsTab({ plant : { id, plantWateringEvents, plantReplantEvents, plantFertilizationEvents }}) {
+export default function PlantTreatmentsTab({ plant : { id, lastWatering, lastReplant, lastFertilization }}) {
   const { strings } = useLocalizedStrings();
   const { authFallback } = useAuth();
   const [waterPlant] = useWaterPlantMutation();
   const [replantPlant] = useReplantPlantMutation();
   const [fertilizePlant] = useFertilizePlantMutation();
-
-  const lastWatering = [...plantWateringEvents].sort(
-    (a, b) => b.eventDate - a.eventDate
-  )[0];
-
-  const lastReplant = [...plantReplantEvents].sort(
-    (a, b) => b.eventDate - a.eventDate
-  )[0];
-
-  const lastFertilization = [...plantFertilizationEvents].sort(
-    (a, b) => b.eventDate - a.eventDate
-  )[0];
 
   const submitWaterPlant = async (setMessage) => {
     try {

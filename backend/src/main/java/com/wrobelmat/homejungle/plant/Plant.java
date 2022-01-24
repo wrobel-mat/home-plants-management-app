@@ -2,6 +2,7 @@ package com.wrobelmat.homejungle.plant;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.wrobelmat.homejungle.plant_img.PlantImgDetails;
 import com.wrobelmat.homejungle.plant_treatments.plant_fertilization.PlantFertilization;
 import com.wrobelmat.homejungle.plant_treatments.plant_replant.PlantReplant;
 import com.wrobelmat.homejungle.plant_treatments.plant_watering.PlantWatering;
@@ -55,26 +56,41 @@ public class Plant {
     private int fertilizeFreq;
     private boolean airPurification;
     private boolean toxicity;
-    private String imgUri;
     private Long dateCreated;
     @OneToMany(orphanRemoval = true, mappedBy = "plant")
     @JsonManagedReference
-    private List<PlantWatering> plantWateringEvents;
+    private List<PlantImgDetails> plantImgDetailsList;
     @OneToMany(orphanRemoval = true, mappedBy = "plant")
     @JsonManagedReference
-    private List<PlantReplant> plantReplantEvents;
+    private List<PlantWatering> plantWateringTreatments;
     @OneToMany(orphanRemoval = true, mappedBy = "plant")
     @JsonManagedReference
-    private List<PlantFertilization> plantFertilizationEvents;
+    private List<PlantReplant> plantReplantTreatments;
+    @OneToMany(orphanRemoval = true, mappedBy = "plant")
+    @JsonManagedReference
+    private List<PlantFertilization> plantFertilizationTreatments;
 
     public Plant() {
     }
 
-    public Plant(User user, String name, String species) {
+    public Plant(User user, String name, String species,
+                 String location, String description, String soilType,
+                 TempRange tempRange, int airHumidity, int sunlight, int watering,
+                 int fertilizeFreq, boolean airPurification, boolean toxicity) {
         this.user = user;
         this.name = name;
         this.species = species;
-        dateCreated = Calendar.getInstance().getTimeInMillis();
+        this.location = location;
+        this.description = description;
+        this.soilType = soilType;
+        this.tempRange = tempRange;
+        this.airHumidity = airHumidity;
+        this.sunlight = sunlight;
+        this.watering = watering;
+        this.fertilizeFreq = fertilizeFreq;
+        this.airPurification = airPurification;
+        this.toxicity = toxicity;
+        this.dateCreated = Calendar.getInstance().getTimeInMillis();
     }
 
     public String getId() {
@@ -189,36 +205,32 @@ public class Plant {
         this.toxicity = toxicity;
     }
 
-    public String getImgUri() {
-        return imgUri;
-    }
-
-    public void setImgUri(String imgUri) {
-        this.imgUri = imgUri;
-    }
-
     public long getDateCreated() {
         return dateCreated;
     }
 
-    public List<PlantWatering> getPlantWateringEvents() {
-        return plantWateringEvents;
+    public List<PlantImgDetails> getPlantImgDetailsList() {
+        return plantImgDetailsList;
     }
 
-    public List<PlantReplant> getPlantReplantEvents() {
-        return plantReplantEvents;
+    public List<PlantWatering> getPlantWateringTreatments() {
+        return plantWateringTreatments;
     }
 
-    public List<PlantFertilization> getPlantFertilizationEvents() {
-        return plantFertilizationEvents;
+    public List<PlantReplant> getPlantReplantTreatments() {
+        return plantReplantTreatments;
+    }
+
+    public List<PlantFertilization> getPlantFertilizationTreatments() {
+        return plantFertilizationTreatments;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Plant: %s, id: %s, user_id: %s, watering_events: %s, transplant_events: %s",
+                "Plant: %s, id: %s, user_id: %s, watering_treatments: %s, transplant_treatments: %s",
                 this.name, this.id, this.user.getId(),
-                this.plantWateringEvents.toString(),
-                this.plantReplantEvents.toString());
+                this.plantWateringTreatments.toString(),
+                this.plantReplantTreatments.toString());
     }
 }

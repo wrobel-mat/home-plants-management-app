@@ -56,8 +56,8 @@ app:
       secret: ${random.value}
   gcloud:
     project-id: ${GCLOUD_PROJECT_ID}
-    storage-base-uri: ${GCLOUD_STORAGE_BASE_URI}
     bucket-name: ${GCLOUD_BUCKET_NAME}
+    sign-url-duration-days: ${GCLOUD_SIGN_URL_DURATION_DAYS}
   domain:
     uri-prefix: ${DOMAIN_URI_PREFIX}
     name: ${DOMAIN_NAME}

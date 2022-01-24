@@ -10,24 +10,16 @@ import {
 import "./PlantItem.css";
 import localeMap from 'util/locale-map'
 
-export default function PlantItem({ plant: { id, name, imgUri, plantWateringEvents, plantFertilizationEvents }}) {
+export default function PlantItem({ plant: { id, name, mainImgUri, lastWatering, lastFertilization }}) {
   const [message, setMessage] = useState(undefined);
   const navigate = useNavigate();
   const { strings, getLanguage } = useLocalizedStrings();
   const { authFallback } = useAuth();
   const [waterPlant] = useWaterPlantMutation();
   const [fertilizePlant] = useFertilizePlantMutation();
-  const imgFilePath = imgUri
-    ? imgUri
+  const imgFilePath = mainImgUri
+    ? mainImgUri
     : "default-plant-img.svg";
-
-  const lastWatering = [...plantWateringEvents].sort(
-    (a, b) => b.eventDate - a.eventDate
-  )[0];
-
-  const lastFertilization = [...plantFertilizationEvents].sort(
-    (a, b) => b.eventDate - a.eventDate
-  )[0];
 
   const wateringMsg = lastWatering
     ? strings.plant.events.lastWatering  +

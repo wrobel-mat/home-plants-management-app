@@ -16,6 +16,4 @@ interface PlantRepository {
     List<Plant> findAll();
 
     Plant save(Plant plant);
-
-    boolean existsById(String id);
 }

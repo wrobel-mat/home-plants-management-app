@@ -12,9 +12,9 @@ export default function PlantManagementPanel({ plant }) {
   const [isEditPlantModalOpen, setIsEditPlantModalOpen] = useState(false);
   const [isEditPlantImgModalOpen, setIsEditPlantImgModalOpen] = useState(false);
 
-  const { name, species, imgUri } = plant;
-  const imgFilePath = imgUri
-    ? imgUri
+  const { name, species, mainImgUri } = plant;
+  const imgFilePath = mainImgUri
+    ? mainImgUri
     : "../default-plant-img.svg";
 
   const toggleDeletePlantModal = () => {

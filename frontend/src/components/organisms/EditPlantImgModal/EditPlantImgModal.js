@@ -62,7 +62,7 @@ export default function EditPlantImgModal({ isOpen, toggleIsOpen, plantId }) {
           registerOpt={{
             required: strings.plant.editImgModal.plantImgRequiredMsg,
           }}
-          accept="image/bmp, image/jpeg, image/png, image/gif"
+          accept="image/jpeg, image/png"
         />
         <Button type="submit" text={strings.plant.editImgModal.submitBtn} />
       </Form>

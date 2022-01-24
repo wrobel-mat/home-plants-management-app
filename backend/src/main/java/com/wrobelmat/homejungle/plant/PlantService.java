@@ -1,8 +1,12 @@
 package com.wrobelmat.homejungle.plant;
 
 import com.wrobelmat.homejungle.exceptions.plant.PlantNotFoundException;
-import com.wrobelmat.homejungle.plant.projections.AddPlantForm;
+import com.wrobelmat.homejungle.exceptions.plant_treatments.SubmitPlantTreatmentException;
+import com.wrobelmat.homejungle.plant.projections.PlantWriteModel;
+import com.wrobelmat.homejungle.plant.projections.PlantReadModel;
+import com.wrobelmat.homejungle.plant_img.PlantImgDetails;
 import com.wrobelmat.homejungle.plant_img.PlantImgService;
+import com.wrobelmat.homejungle.plant_img.PlantImgType;
 import com.wrobelmat.homejungle.plant_treatments.PlantTreatment;
 import com.wrobelmat.homejungle.plant_treatments.plant_fertilization.PlantFertilization;
 import com.wrobelmat.homejungle.plant_treatments.plant_fertilization.PlantFertilizationService;
@@ -20,6 +24,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlantService {
@@ -45,59 +50,81 @@ public class PlantService {
         this.plantFertilizationService = plantFertilizationService;
     }
 
-    public List<Plant> getAllUserPlants(String userEmail) {
-        User user = userService.findByEmail(userEmail);
-        return plantRepository.findAllByUser(user);
-    }
-
-    public Plant getUserPlant(String userEmail, String plantId) throws PlantNotFoundException {
+    public List<PlantReadModel> getAllPlants(String userEmail) {
         User user = userService.findByEmail(userEmail);
         return plantRepository
-                .findByIdAndUser(plantId, user)
-                .orElseThrow(PlantNotFoundException::new);
+                .findAllByUser(user)
+                .stream()
+                .map(this::getPlantReadModel)
+                .collect(Collectors.toList());
     }
 
-    public Plant addUserPlant(AddPlantForm addPlantForm, MultipartFile plantImg, String userEmail) {
+    public PlantReadModel getPlant(String userEmail, String plantId) throws PlantNotFoundException {
         User user = userService.findByEmail(userEmail);
-        Plant plant = addPlantForm.toPlant(user);
-        Plant newPlant = plantRepository.save(plant);
-        String plantImgUri = plantImgService.saveImage(plantImg, newPlant.getId());
-        newPlant.setImgUri(plantImgUri);
-        return plantRepository.save(newPlant);
+        Plant plant = plantRepository
+                .findByIdAndUser(plantId, user)
+                .orElseThrow(PlantNotFoundException::new);
+        return getPlantReadModel(plant);
+    }
+
+    public PlantReadModel addNewPlant(PlantWriteModel plantWriteModel, MultipartFile imgFile, String userEmail) {
+        User user = userService.findByEmail(userEmail);
+        Plant persistedPlant = plantRepository.save(plantWriteModel.toPlant(user));
+        PlantReadModel plantReadModel = new PlantReadModel(persistedPlant);
+
+        if (imgFile != null && !imgFile.isEmpty()) {
+            PlantImgDetails plantImgDetails = new PlantImgDetails(persistedPlant, PlantImgType.MAIN_IMG);
+            String imgUri = plantImgService.saveImage(imgFile, plantImgDetails);
+            plantReadModel.setMainImgUri(imgUri);
+        }
+
+        setLastPlantTreatments(persistedPlant, plantReadModel);
+
+        return plantReadModel;
+    }
+
+    public PlantReadModel updatePlantDetails(PlantWriteModel plantWriteModel, String plantId, String userEmail) {
+        User user = userService.findByEmail(userEmail);
+        Plant updatedPlant = plantRepository
+                .findByIdAndUser(plantId, user)
+                .orElseThrow(PlantNotFoundException::new);
+        updatedPlant.setName(plantWriteModel.getName());
+        updatedPlant.setSpecies(plantWriteModel.getSpecies());
+        updatedPlant.setDescription(plantWriteModel.getDescription());
+        updatedPlant.setLocation(plantWriteModel.getLocation());
+        updatedPlant.setSoilType(plantWriteModel.getSoilType());
+        updatedPlant.setTempRange(plantWriteModel.getTempRange());
+        updatedPlant.setAirHumidity(plantWriteModel.getAirHumidity());
+        updatedPlant.setSunlight(plantWriteModel.getSunlight());
+        updatedPlant.setWatering(plantWriteModel.getWatering());
+        updatedPlant.setFertilizeFreq(plantWriteModel.getFertilizeFreq());
+        updatedPlant.setAirPurification(plantWriteModel.isAirPurification());
+        updatedPlant.setToxicity(plantWriteModel.isToxicity());
+        return getPlantReadModel(plantRepository.save(updatedPlant));
+    }
+
+    public String updatePlantMainImg(MultipartFile imgFile, String plantId, String userEmail) {
+        User user = userService.findByEmail(userEmail);
+        Plant plant = plantRepository
+                .findByIdAndUser(plantId, user)
+                .orElseThrow(PlantNotFoundException::new);
+
+        Optional<PlantImgDetails> oldPlantImgDetails = getPlantMainImgDetails(plant);
+        oldPlantImgDetails.ifPresent(plantImgService::deleteImage);
+
+        PlantImgDetails newPlantImgDetails = new PlantImgDetails(plant, PlantImgType.MAIN_IMG);
+
+        return plantImgService.saveImage(imgFile, newPlantImgDetails);
     }
 
     @Transactional
-    public void deleteUserPlant(String plantId, String userEmail) {
+    public void deletePlant(String plantId, String userEmail) {
         User user = userService.findByEmail(userEmail);
         Plant plant = plantRepository
                 .findByIdAndUser(plantId, user)
                 .orElseThrow(PlantNotFoundException::new);
-        plantImgService.deleteImage(plant.getImgUri());
+        plantImgService.deleteAllPlantImages(plant.getPlantImgDetailsList());
         plantRepository.deleteByIdAndUser(plantId, user);
-    }
-
-    public Plant updateUserPlant(String userEmail, Plant newPlant) {
-        User user = userService.findByEmail(userEmail);
-        newPlant.setUser(user);
-        return plantRepository.save(newPlant);
-    }
-
-    public String updatePlantImg(MultipartFile plantImg, String plantId, String userEmail) {
-        User user = userService.findByEmail(userEmail);
-        Plant plant = plantRepository
-                .findByIdAndUser(plantId, user)
-                .orElseThrow(PlantNotFoundException::new);
-
-        plantImgService.deleteImage(plant.getImgUri());
-
-        String newImgUri = plantImgService.saveImage(plantImg, plantId);
-        plant.setImgUri(newImgUri);
-        plantRepository.save(plant);
-        return newImgUri;
-    }
-
-    public List<Plant> findAll() {
-        return plantRepository.findAll();
     }
 
     public void submitPlantWatering(String plantId, String userEmail) {
@@ -105,11 +132,13 @@ public class PlantService {
         Plant plant = plantRepository
                 .findByIdAndUser(plantId, user)
                 .orElseThrow(PlantNotFoundException::new);
-        Optional<PlantWatering> lastWatering = getLastEvent(plant.getPlantWateringEvents());
-        if (lastWatering.isEmpty() || (isNotTodayEvent(lastWatering.get()))) {
-            PlantWatering plantWatering = new PlantWatering(plant);
-            plantWateringService.addPlantWatering(plantWatering);
-        }
+
+        Optional<PlantWatering> lastWatering = getLastEvent(plant.getPlantWateringTreatments());
+        if (lastWatering.isPresent() && (isTodayEvent(lastWatering.get())))
+            throw new SubmitPlantTreatmentException("Plant Already Watered Today");
+
+        PlantWatering plantWatering = new PlantWatering(plant);
+        plantWateringService.addPlantWatering(plantWatering);
     }
 
     public void submitPlantReplant(String plantId, String userEmail, String note) {
@@ -117,11 +146,14 @@ public class PlantService {
         Plant plant = plantRepository
                 .findByIdAndUser(plantId, user)
                 .orElseThrow(PlantNotFoundException::new);
-        Optional<PlantReplant> lastReplant = getLastEvent(plant.getPlantReplantEvents());
-        if (lastReplant.isEmpty() || isNotTodayEvent(lastReplant.get())) {
-            PlantReplant plantReplant = new PlantReplant(plant, note);
-            plantReplantService.addPlantReplant(plantReplant);
-        }
+
+        Optional<PlantReplant> lastReplant = getLastEvent(plant.getPlantReplantTreatments());
+        if (lastReplant.isPresent() && isTodayEvent(lastReplant.get()))
+            throw new SubmitPlantTreatmentException("Plant Already Replanted Today");
+
+        PlantReplant plantReplant = new PlantReplant(plant, note);
+        plantReplantService.addPlantReplant(plantReplant);
+
     }
 
     public void submitPlantFertilization(String plantId, String userEmail, String note) {
@@ -129,20 +161,52 @@ public class PlantService {
         Plant plant = plantRepository
                 .findByIdAndUser(plantId, user)
                 .orElseThrow(PlantNotFoundException::new);
-        Optional<PlantFertilization> lastFertilization = getLastEvent(plant.getPlantFertilizationEvents());
-        if (lastFertilization.isEmpty() || isNotTodayEvent(lastFertilization.get())) {
-            PlantFertilization plantFertilization = new PlantFertilization(plant, note);
-            plantFertilizationService.addPlantFertilization(plantFertilization);
-        }
+
+        Optional<PlantFertilization> lastFertilization = getLastEvent(plant.getPlantFertilizationTreatments());
+        if (lastFertilization.isPresent() && isTodayEvent(lastFertilization.get()))
+            throw new SubmitPlantTreatmentException("Plant Already Fertilized Today");
+
+        PlantFertilization plantFertilization = new PlantFertilization(plant, note);
+        plantFertilizationService.addPlantFertilization(plantFertilization);
+    }
+
+    private PlantReadModel getPlantReadModel(Plant plant) {
+        PlantReadModel plantReadModel = new PlantReadModel(plant);
+        getPlantMainImgDetails(plant)
+                .ifPresent(imgDetails ->
+                        plantReadModel.setMainImgUri(plantImgService.getImgUri(imgDetails)));
+        setLastPlantTreatments(plant, plantReadModel);
+        return plantReadModel;
+    }
+
+    private Optional<PlantImgDetails> getPlantMainImgDetails(Plant plant) {
+        return plant
+                .getPlantImgDetailsList()
+                .stream()
+                .filter(plantImgDetails ->
+                        plantImgDetails
+                                .getImgType()
+                                .equals(PlantImgType.MAIN_IMG.toString()))
+                .findFirst();
+    }
+
+    private void setLastPlantTreatments(Plant plant, PlantReadModel plantReadModel) {
+        Optional<PlantWatering> lastWatering = getLastEvent(plant.getPlantWateringTreatments());
+        Optional<PlantReplant> lastReplant = getLastEvent(plant.getPlantReplantTreatments());
+        Optional<PlantFertilization> lastFertilization = getLastEvent(plant.getPlantFertilizationTreatments());
+        lastWatering.ifPresent(plantReadModel::setLastWatering);
+        lastReplant.ifPresent(plantReadModel::setLastReplant);
+        lastFertilization.ifPresent(plantReadModel::setLastFertilization);
     }
 
     private <T extends PlantTreatment> Optional<T> getLastEvent(List<T> eventList) {
+        if (eventList == null) return Optional.empty();
         return eventList.stream().max((a, b) -> (int) (a.getEventDate() - b.getEventDate()));
     }
 
-    private boolean isNotTodayEvent(PlantTreatment event) {
+    private boolean isTodayEvent(PlantTreatment event) {
         Timestamp eventTimestamp = new Timestamp(event.getEventDate());
-        return eventTimestamp.toLocalDateTime().getDayOfYear() != LocalDateTime.now().getDayOfYear();
+        return eventTimestamp.toLocalDateTime().getDayOfYear() == LocalDateTime.now().getDayOfYear();
     }
 
 }

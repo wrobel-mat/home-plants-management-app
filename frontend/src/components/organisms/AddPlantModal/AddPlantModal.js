@@ -60,6 +60,19 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
     const newPlant = {
       name: newPlantName,
       species: newPlantSpecies,
+      location: undefined,
+      description: undefined,
+      soilType: undefined,
+      tempRange: {
+        minTemp: undefined,
+        maxTemp: undefined
+      },
+      airHumidity: undefined,
+      sunlight: undefined,
+      watering: undefined,
+      fertilizeFreq: undefined,
+      airPurification: undefined,
+      toxicity: undefined
     };
     const data = getFormData(newPlant, newPlantImg[0]);
     try {
@@ -116,7 +129,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           id={nanoid()}
           label={strings.plants.addPlantModal.plantImg}
           name="newPlantImg"
-          accept="image/bmp, image/jpeg, image/png, image/gif"
+          accept="image/jpeg, image/png"
         />
         <Button
           type="submit"

@@ -1,42 +1,52 @@
 package com.wrobelmat.homejungle.plant_img;
 
 import com.wrobelmat.homejungle.exceptions.plant.PlantImgSaveException;
+import com.wrobelmat.homejungle.plant_img.storage.GCloudStorage;
+import com.wrobelmat.homejungle.plant_img.storage.ImgStorage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.List;
 
 @Service
 public class PlantImgService {
 
-    private final String mainImgPrefix = "_main_img_";
     private final ImgStorage imgStorage;
+    private final PlantImgDetailsRepository plantImgDetailsRepository;
 
-    public PlantImgService(GCloudStorage imgStorage) {
+    public PlantImgService(GCloudStorage imgStorage,
+                           PlantImgDetailsRepository plantImgDetailsRepository) {
         this.imgStorage = imgStorage;
+        this.plantImgDetailsRepository = plantImgDetailsRepository;
     }
 
-    public String saveImage(MultipartFile plantImg, String plantId) {
-        if (plantImg == null || plantImg.isEmpty()) return "";
-        String imgFileExtension = getExtension(plantImg.getOriginalFilename());
-        String imgName = getImgName(imgFileExtension);
-        try {
-            return imgStorage.saveImage(plantImg, plantId, imgName);
-        } catch (IOException e) {
-            throw new PlantImgSaveException();
+    public String saveImage(MultipartFile imgFile, PlantImgDetails plantImgDetails) {
+        if (imgFile != null && !imgFile.isEmpty()) {
+            PlantImgDetails persistedImgDetails = plantImgDetailsRepository.save(plantImgDetails);
+            try {
+                return imgStorage.saveImage(imgFile, persistedImgDetails);
+            } catch (IOException e) {
+                plantImgDetailsRepository.deleteById(persistedImgDetails.getId());
+                throw new PlantImgSaveException();
+            }
         }
+        return "";
     }
 
-    public void deleteImage(String imgUri) {
-        imgStorage.deleteImage(imgUri);
+    public void deleteImage(PlantImgDetails plantImgDetails) {
+        plantImgDetailsRepository.deleteById(plantImgDetails.getId());
+        imgStorage.deleteImage(plantImgDetails);
     }
 
-    private String getExtension(String originalFilename) {
-        return originalFilename.substring(originalFilename.lastIndexOf("."));
+    public void deleteAllPlantImages(List<PlantImgDetails> plantImgDetailsList) {
+        plantImgDetailsList.forEach(plantImgDetails -> {
+            imgStorage.deleteImage(plantImgDetails);
+            plantImgDetailsRepository.deleteById(plantImgDetails.getId());
+        });
     }
 
-    private String getImgName(String imgFileExtension) {
-        return mainImgPrefix + UUID.randomUUID() + imgFileExtension;
+    public String getImgUri(PlantImgDetails plantImgDetails) {
+        return imgStorage.getImgUri(plantImgDetails);
     }
 }

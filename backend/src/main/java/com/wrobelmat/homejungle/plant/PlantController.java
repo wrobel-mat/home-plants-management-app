@@ -1,7 +1,8 @@
 package com.wrobelmat.homejungle.plant;
 
 import com.wrobelmat.homejungle.exception_handler.ExceptionHandlerProcessing;
-import com.wrobelmat.homejungle.plant.projections.AddPlantForm;
+import com.wrobelmat.homejungle.plant.projections.PlantWriteModel;
+import com.wrobelmat.homejungle.plant.projections.PlantReadModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +27,18 @@ public class PlantController {
     }
 
     @GetMapping("/all")
-    ResponseEntity<List<Plant>> getAllPlants(Authentication authentication) {
-        List<Plant> userPlants = plantService.getAllUserPlants(authentication.getName());
+    ResponseEntity<List<PlantReadModel>> getAllPlants(Authentication authentication) {
+        List<PlantReadModel> plants = plantService.getAllPlants(authentication.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Get All User Plants Successful")
-                .body(userPlants);
+                .body(plants);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Plant> getPlant(@PathVariable("id") String plantId,
+    ResponseEntity<PlantReadModel> getPlant(@PathVariable("id") String plantId,
                                    Authentication authentication) {
-        Plant plant = plantService.getUserPlant(authentication.getName(), plantId);
+        PlantReadModel plant = plantService.getPlant(authentication.getName(), plantId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Get User Plant Successful")
@@ -45,10 +46,10 @@ public class PlantController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseEntity<Plant> addPlant(@RequestPart("plant") @Valid AddPlantForm addPlantForm,
-                                   @RequestPart(value = "plant_img", required = false) MultipartFile plantImg,
+    ResponseEntity<PlantReadModel> addPlant(@RequestPart("plant") @Valid PlantWriteModel plantWriteModel,
+                                   @RequestPart(value = "plant_img", required = false) MultipartFile imgFile,
                                    Authentication authentication) {
-        Plant newPlant = plantService.addUserPlant(addPlantForm, plantImg, authentication.getName());
+        PlantReadModel newPlant = plantService.addNewPlant(plantWriteModel, imgFile, authentication.getName());
         return ResponseEntity
                 .created(URI.create("/" + newPlant.getId()))
                 .header("message", "Add User Plant Successful")
@@ -58,7 +59,7 @@ public class PlantController {
     @DeleteMapping("/{id}")
     ResponseEntity<?> deletePlant(@PathVariable("id") String plantId,
                                   Authentication authentication) {
-        plantService.deleteUserPlant(plantId, authentication.getName());
+        plantService.deletePlant(plantId, authentication.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Delete User Plant Successful")
@@ -66,9 +67,10 @@ public class PlantController {
     }
 
     @PatchMapping("/{id}")
-    ResponseEntity<?> updatePlant(@RequestBody @Valid Plant plant,
-                                  Authentication authentication) {
-        Plant updatedPlant = plantService.updateUserPlant(authentication.getName(), plant);
+    ResponseEntity<PlantReadModel> updatePlantDetails(@RequestBody @Valid PlantWriteModel plantWriteModel,
+                                                      @PathVariable("id") String plantId,
+                                                      Authentication authentication) {
+        PlantReadModel updatedPlant = plantService.updatePlantDetails(plantWriteModel, plantId, authentication.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Update User Plant Successful")
@@ -76,10 +78,10 @@ public class PlantController {
     }
 
     @PatchMapping(value = "/{id}", params = "img")
-    ResponseEntity<?> updatePlantImage(@RequestPart("plant_img") MultipartFile plantImg,
-                                       @PathVariable("id") String plantId,
-                                       Authentication authentication) {
-        String imgUri = plantService.updatePlantImg(plantImg, plantId, authentication.getName());
+    ResponseEntity<String> updatePlantMainImage(@RequestPart("plant_img") MultipartFile imgFile,
+                                                @PathVariable("id") String plantId,
+                                                Authentication authentication) {
+        String imgUri = plantService.updatePlantMainImg(imgFile, plantId, authentication.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Update Plant Image Successful")
@@ -102,7 +104,7 @@ public class PlantController {
         plantService.submitPlantReplant(plantId, authentication.getName(), note);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .header("message", "Plant Transplant Successful")
+                .header("message", "Plant Replant Successful")
                 .build();
     }
 

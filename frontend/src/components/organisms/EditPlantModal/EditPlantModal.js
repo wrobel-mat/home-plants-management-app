@@ -134,8 +134,8 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
           updatedPlantWatering: plant.watering,
           updatedPlantAirHumidity: plant.airHumidity,
           updatedPlantFertilizeFreq: plant.fertilizeFreq,
-          updatedPlantMinTemp: plant.tempRange?.minTemp,
-          updatedPlantMaxTemp: plant.tempRange?.maxTemp,
+          updatedPlantMinTemp: plant.minTemp,
+          updatedPlantMaxTemp: plant.maxTemp,
           updatedPlantAirPurification: plant.airPurification === false ? 0 : 1,
           updatedPlantToxicity: plant.toxicity === false ? 0 : 1,
         }}

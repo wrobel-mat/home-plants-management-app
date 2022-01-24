@@ -6,6 +6,7 @@ import com.wrobelmat.homejungle.exceptions.confirmation_token.ConfirmationTokenN
 import com.wrobelmat.homejungle.exceptions.email.MailSendException;
 import com.wrobelmat.homejungle.exceptions.plant.PlantImgSaveException;
 import com.wrobelmat.homejungle.exceptions.plant.PlantNotFoundException;
+import com.wrobelmat.homejungle.exceptions.plant_treatments.SubmitPlantTreatmentException;
 import com.wrobelmat.homejungle.exceptions.user.UserAlreadyConfirmedException;
 import com.wrobelmat.homejungle.exceptions.user.UserAlreadyRegisteredException;
 import com.wrobelmat.homejungle.exceptions.user.UserNotFoundException;
@@ -113,6 +114,14 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(MailSendException.class)
     public ResponseEntity<?> handleMailSendException(MailSendException e) {
+        return ResponseEntity
+                .status(e.getHttpStatus())
+                .header("message", e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(SubmitPlantTreatmentException.class)
+    public ResponseEntity<?> handleSubmitPlantTreatmentException(SubmitPlantTreatmentException e) {
         return ResponseEntity
                 .status(e.getHttpStatus())
                 .header("message", e.getMessage())

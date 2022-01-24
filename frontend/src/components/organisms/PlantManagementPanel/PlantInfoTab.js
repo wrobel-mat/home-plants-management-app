@@ -12,7 +12,8 @@ export default function PlantInfoTab({ plant }) {
     soilType,
     sunlight,
     airHumidity,
-    tempRange,
+    minTemp,
+    maxTemp,
     watering,
     fertilizeFreq,
     airPurification,
@@ -25,7 +26,7 @@ export default function PlantInfoTab({ plant }) {
     soilType ||
     sunlight !== 0 ||
     airHumidity !== 0 ||
-    (tempRange && (tempRange.minTemp !== 0 || tempRange.maxTemp !== 0)) ||
+    (minTemp !== 0 || maxTemp !== 0) ||
     watering !== 0 ||
     fertilizeFreq !== 0;
   const hasHealthAspects = airPurification || toxicity;
@@ -73,13 +74,12 @@ export default function PlantInfoTab({ plant }) {
               value={strings.plant.sunlightOptions[sunlight]}
             />
           )}
-          {tempRange &&
-            (tempRange.minTemp !== 0 || tempRange.maxTemp !== 0) && (
-              <PlantInfoItem
-                name={strings.plant.tempRange}
-                value={`${tempRange.minTemp} - ${tempRange.maxTemp} °C`}
-              />
-            )}
+          {(minTemp !== 0 || maxTemp !== 0) && (
+            <PlantInfoItem
+              name={strings.plant.tempRange}
+              value={`${minTemp} - ${maxTemp} °C`}
+            />
+          )}
           {soilType && (
             <PlantInfoItem name={strings.plant.soilType} value={soilType} />
           )}
