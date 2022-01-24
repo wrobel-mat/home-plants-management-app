@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: vancoricomplex/home-jungle-backend-prod:0.1.2
+        image: vancoricomplex/home-jungle-backend-prod:0.2.1
         ports:
         - containerPort: 8080
         env:
@@ -85,11 +85,11 @@ spec:
             configMapKeyRef:
               name: home-jungle-config
               key: google-application-credentials
-        - name: GCLOUD_STORAGE_BASE_URI
+        - name: GCLOUD_SIGN_URL_DURATION_DAYS
           valueFrom:
             configMapKeyRef:
               name: home-jungle-config
-              key: gcloud-storage-base-uri
+              key: gcloud-sign-url-duration-days
 ---
 apiVersion: v1
 kind: Service

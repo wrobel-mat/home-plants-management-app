@@ -11,4 +11,4 @@ data:
   client-host: frontend-service
   client-port: '3000'
   google-application-credentials: /gcloud/home-jungle-338120-ceecfd084cec.json
-  gcloud-storage-base-uri: https://storage.googleapis.com
+  gcloud-sign-url-duration-days: '1'
