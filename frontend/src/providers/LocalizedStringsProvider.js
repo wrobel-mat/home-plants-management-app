@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import strings from "assets/strings";
 
 const LocalizedStringsContext = React.createContext({});
 
 const LocalizedStringsProvider = ({ children }) => {
+  const [lang, setLang] = useState(strings.getLanguage());
+  
   const setLanguage = (language) => {
     strings.setLanguage(language);
+    setLang(language);
   };
 
   const getLanguage = () => {

@@ -38,3 +38,25 @@
   padding: 16px 0;
   text-align: center;
 }
+
+.footer-lang-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-anthracite);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-sm);
+  margin: 0;
+  padding: 0 4px;
+  text-decoration: none;
+  transition: font-weight 0.15s ease;
+}
+
+.footer-lang-btn:hover {
+  font-weight: 500;
+}
+
+.footer-lang-btn.active {
+  font-weight: 500;
+}
