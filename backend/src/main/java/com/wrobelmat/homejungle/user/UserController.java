@@ -47,9 +47,10 @@ public class UserController {
                 .body(user);
     }
 
-    @PostMapping("/register")
-    ResponseEntity<User> registerUser(@RequestBody @Valid RegisterUserForm registerUserForm) {
-        User newUser = userService.registerUser(registerUserForm);
+    @PostMapping(value = "/register")
+    ResponseEntity<User> registerUser(@RequestBody @Valid RegisterUserForm registerUserForm,
+                                      @RequestParam(required = false, value = "lang") String lang) {
+        User newUser = userService.registerUser(registerUserForm, lang);
         URI location = URI.create("/" + newUser.getId());
         return ResponseEntity
                 .created(location)
@@ -58,8 +59,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/confirm", params = "token")
-    ResponseEntity<User> confirmUser(@RequestParam("token") String token) {
-        User confirmedUser = userService.confirmUser(token);
+    ResponseEntity<User> confirmUser(@RequestParam("token") String token,
+                                     @RequestParam(required = false, value = "lang") String lang) {
+        User confirmedUser = userService.confirmUser(token, lang);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Confirm User Successful")
@@ -68,8 +70,9 @@ public class UserController {
 
     @PostMapping(value = "/confirm", params = "!token")
     ResponseEntity<?> resendConfirmationMail(@RequestParam("resend") boolean resend,
-                                             @RequestParam("userId") String userId) {
-        userService.deleteOldTokenAndResendConfirmationMail(resend, userId);
+                                             @RequestParam("userId") String userId,
+                                             @RequestParam(required = false, value = "lang") String lang) {
+        userService.deleteOldTokenAndResendConfirmationMail(resend, userId, lang);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Resend Confirmation Successful")
@@ -86,8 +89,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit-email")
-    ResponseEntity<User> editUserEmail(@RequestBody @Valid EditUserEmailForm editUserEmailForm) {
-        User editedUser = userService.editUserEmail(editUserEmailForm.getUserId(), editUserEmailForm.getEmail());
+    ResponseEntity<User> editUserEmail(@RequestBody @Valid EditUserEmailForm editUserEmailForm,
+                                       @RequestParam(required = false, value = "lang") String lang) {
+        User editedUser = userService.editUserEmail(editUserEmailForm.getUserId(), editUserEmailForm.getEmail(), lang);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Edit User Email Successful")
@@ -95,8 +99,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit-password")
-    ResponseEntity<User> editUserPassword(@RequestBody @Valid EditUserPasswordForm editUserPasswordForm) {
-        User editedUser = userService.editUserPassword(editUserPasswordForm.getUserId(), editUserPasswordForm.getPassword());
+    ResponseEntity<User> editUserPassword(@RequestBody @Valid EditUserPasswordForm editUserPasswordForm,
+                                          @RequestParam(required = false, value = "lang") String lang) {
+        User editedUser = userService.editUserPassword(editUserPasswordForm.getUserId(), editUserPasswordForm.getPassword(), lang);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Edit User Password Successful")
@@ -134,8 +139,9 @@ public class UserController {
     }
 
     @DeleteMapping
-    ResponseEntity<?> deleteUser(Authentication authentication) {
-        userService.deleteUser(authentication.getName());
+    ResponseEntity<?> deleteUser(Authentication authentication,
+                                 @RequestParam(required = false, value = "lang") String lang) {
+        userService.deleteUser(authentication.getName(), lang);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Delete User Successful")

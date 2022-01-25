@@ -16,10 +16,10 @@ const userApi = {
       console.log(e);
     }
   },
-  register: async ({ name, email, password }) => {
+  register: async ({ name, email, password, lang }) => {
     try {
       return await axios.post(
-        apiPath + "/register",
+        apiPath + "/register?lang=" + lang,
         { email, password, name },
         {
           headers: {
@@ -34,10 +34,11 @@ const userApi = {
       console.log(e);
     }
   },
-  confirmUser: async (confirmationToken) => {
+  confirmUser: async (confirmationToken, lang) => {
     try {
       const data = new URLSearchParams();
       data.append("token", confirmationToken);
+      data.append("lang", lang);
       return await axios.post(apiPath + "/confirm", data);
     } catch (e) {
       if (e.response) {
@@ -46,11 +47,12 @@ const userApi = {
       console.log(e);
     }
   },
-  resendConfirmationMail: async ({ resend, userId }) => {
+  resendConfirmationMail: async ({ resend, userId, lang }) => {
     try {
       const data = new URLSearchParams();
       data.append("resend", resend);
       data.append("userId", userId);
+      data.append("lang", lang);
       return await axios.post(apiPath + "/confirm", data);
     } catch (e) {
       if (e.response) {
@@ -73,10 +75,10 @@ const userApi = {
       console.log(e);
     }
   },
-  editEmail: async (data, access_token) => {
+  editEmail: async (data, access_token, lang) => {
     console.log(data, access_token);
     try {
-      return await axios.post(apiPath + "/edit-email", data, {
+      return await axios.post(apiPath + "/edit-email?lang=" + lang, data, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -88,9 +90,9 @@ const userApi = {
       console.log(e);
     }
   },
-  editPassword: async (data, access_token) => {
+  editPassword: async (data, access_token, lang) => {
     try {
-      return await axios.post(apiPath + "/edit-password", data, {
+      return await axios.post(apiPath + "/edit-password?lang=" + lang, data, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -102,9 +104,9 @@ const userApi = {
       console.log(e);
     }
   },
-  deleteUserAccount: async (access_token) => {
+  deleteUserAccount: async (access_token, lang) => {
     try {
-      return await axios.delete(apiPath, {
+      return await axios.delete(apiPath + "?lang=" + lang, {
         headers: { Authorization: `Bearer ${access_token}`}
       });
     } catch (e) {

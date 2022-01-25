@@ -17,16 +17,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import static com.wrobelmat.homejungle.email.EmailNotificationContentFactory.createNotificationMailContent;
+import static com.wrobelmat.homejungle.email.EmailNotificationMessages.*;
+import static com.wrobelmat.homejungle.email.EmailNotificationMessages.Theme.*;
 import static com.wrobelmat.homejungle.user.UserRole.ROLE_USER;
 
 @Service
 public class UserService {
 
-    @Value("${DOMAIN_URI_PREFIX}")
+    @Value("${app.domain.uri-prefix}")
     private String uriPrefix;
     @Value("${app.domain.name}")
     private String domainName;
-    private final String userConfirmationEndpoint = "/user/confirm";
 
     @Value("${app.user-registration.confirmation-token-expiration-time-min}")
     private Long confirmationTokenExpirationTime;
@@ -36,8 +38,6 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final EmailSender emailSender;
     private final PlantImgService plantImgService;
-
-    //TODO: rework email notifications template (make it prettier and add localization maybe?)
 
     public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSender emailSender, PlantImgService plantImgService) {
         this.userRepository = userRepository;
@@ -52,7 +52,7 @@ public class UserService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public User registerUser(RegisterUserForm registerUserForm) {
+    public User registerUser(RegisterUserForm registerUserForm, String lang) {
         if (userRepository.existsByEmail(registerUserForm.getEmail())) {
             throw new UserAlreadyRegisteredException();
         } else {
@@ -66,12 +66,12 @@ public class UserService {
                     userRepository.save(user);
             final ConfirmationToken confirmationToken =
                     confirmationTokenService.save(new ConfirmationToken(createdUser, confirmationTokenExpirationTime));
-            sendConfirmationMail(confirmationToken);
+            sendRegisterConfirmationMail(confirmationToken, lang);
             return createdUser;
         }
     }
 
-    public User confirmUser(String token) {
+    public User confirmUser(String token, String lang) {
         ConfirmationToken confirmationToken = confirmationTokenService.findByToken(token);
         if (confirmationToken.getConfirmationDate() != null
                 && confirmationToken.getUser().isEnabled())
@@ -84,16 +84,12 @@ public class UserService {
             User confirmedUser = userRepository.save(user);
             confirmationToken.setConfirmationDate(LocalDateTime.now());
             confirmationTokenService.save(confirmationToken);
-            emailSender.send(confirmedUser.getEmail(),
-                    "Home Jungle - Confirmation Successful",
-                    "Hello,\n" +
-                            "Your account has been confirmed successfully.\n" +
-                            "You can now log in with your e-mail and password: " + uriPrefix + domainName);
+            sendConfirmationSuccessMail(confirmedUser.getEmail(), lang);
             return confirmedUser;
         }
     }
 
-    public void deleteOldTokenAndResendConfirmationMail(boolean resend, String userId) {
+    public void deleteOldTokenAndResendConfirmationMail(boolean resend, String userId, String lang) {
         if (resend) {
             ConfirmationToken oldToken = confirmationTokenService.findByUserId(userId);
             if (oldToken.getConfirmationDate() != null && oldToken.getUser().isEnabled())
@@ -102,8 +98,9 @@ public class UserService {
                 throw new ConfirmationTokenNotExpiredException();
             User user = oldToken.getUser();
             confirmationTokenService.delete(oldToken);
-            ConfirmationToken newToken = confirmationTokenService.save(new ConfirmationToken(user, confirmationTokenExpirationTime));
-            sendConfirmationMail(newToken);
+            ConfirmationToken newToken = confirmationTokenService
+                    .save(new ConfirmationToken(user, confirmationTokenExpirationTime));
+            sendRegisterConfirmationMail(newToken, lang);
         }
     }
 
@@ -114,49 +111,69 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User editUserEmail(String id, String email) {
+    public User editUserEmail(String id, String email, String lang) {
         if (userRepository.existsByEmail(email))
             throw new UserAlreadyRegisteredException();
         User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new);
         user.setEmail(email);
         User editedUser = userRepository.save(user);
-        emailSender.send(editedUser.getEmail(),
-                "Home Jungle - Your Account Details Has Changed",
-                "Hello,\n" +
-                        "Your e-mail address has been updated successfully.\n" +
-                        "You can now log in with your new e-mail: " + uriPrefix + domainName);
+        sendUserEmailUpdateConfirmationMail(editedUser.getEmail(), lang);
         return editedUser;
     }
 
-    public User editUserPassword(String id, String password) {
+    public User editUserPassword(String id, String password, String lang) {
         User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new);
         String encryptedPassword = bCryptPasswordEncoder.encode(password);
         user.setPassword(encryptedPassword);
         User editedUser = userRepository.save(user);
-        emailSender.send(editedUser.getEmail(),
-                "Home Jungle - Your Account Details Has Changed",
-                "Hello,\n" +
-                        "Your password has been updated successfully.\n" +
-                        "Your can now log in with your new password: " + uriPrefix + domainName);
+        sendUserPasswordUpdateConfirmationMail(editedUser.getEmail(), lang);
         return editedUser;
     }
 
-    private void sendConfirmationMail(ConfirmationToken token) {
-        String receiver = token.getUser().getEmail();
-        String subject = "Home Jungle - Confirm Your Registration";
-        String messageContent = "Thank you for registering to Home Jungle App.\n" +
-                "Please confirm your registration by clicking on the link below:\n" +
-                uriPrefix + domainName + userConfirmationEndpoint + "?token=" + token.getToken() + "\n " +
-                "The link is active for 30 minutes.";
-        emailSender.send(receiver, subject, messageContent);
+    @Transactional
+    public void deleteUser(String email, String lang) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+        user.getPlants().forEach(plant ->
+                plantImgService
+                        .deleteAllPlantImages(plant.getPlantImgDetailsList()));
+        userRepository.delete(user);
+        sendAccountDeleteConfirmationMail(email, lang);
     }
 
-    @Transactional
-    public void deleteUser(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-        user.getPlants().forEach(plant -> plantImgService.deleteAllPlantImages(plant.getPlantImgDetailsList()));
-        userRepository.delete(user);
+    private void sendRegisterConfirmationMail(ConfirmationToken token, String lang) {
+        String receiver = token.getUser().getEmail();
+        String btnUrl = uriPrefix + domainName + "/user/confirm?token=" + token.getToken();
+        sendNotificationMail(receiver, ACCOUNT_REGISTRATION, lang, btnUrl);
+    }
+
+    private void sendConfirmationSuccessMail(String receiver, String lang) {
+        String btnUrl = uriPrefix + domainName;
+        sendNotificationMail(receiver, ACCOUNT_CONFIRMATION, lang, btnUrl);
+    }
+
+    private void sendUserEmailUpdateConfirmationMail(String receiver, String lang) {
+        String btnUrl = uriPrefix + domainName;
+        sendNotificationMail(receiver, EMAIL_UPDATE, lang, btnUrl);
+    }
+
+    private void sendUserPasswordUpdateConfirmationMail(String receiver, String lang) {
+        String btnUrl = uriPrefix + domainName;
+        sendNotificationMail(receiver, PASSWORD_UPDATE, lang, btnUrl);
+    }
+
+    private void sendAccountDeleteConfirmationMail(String receiver, String lang) {
+        String btnUrl = uriPrefix + domainName;
+        sendNotificationMail(receiver, ACCOUNT_DELETE, lang, btnUrl);
+    }
+
+    private void sendNotificationMail(String receiver, Theme notificationMessagesTheme, String lang, String btnUrl) {
+        String subject = getLocalizedNotificationSubject(notificationMessagesTheme, lang);
+        String notificationMessage = getLocalizedNotificationMessage(notificationMessagesTheme, lang);
+        String btnText = getLocalizedNotificationButtonText(notificationMessagesTheme, lang);
+        String notificationMailContent = createNotificationMailContent(notificationMessage, btnText, btnUrl);
+        emailSender.send(receiver, subject, notificationMailContent);
     }
 }

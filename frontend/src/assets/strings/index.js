@@ -164,7 +164,7 @@ const strings = new LocalizedStrings({
       basicInfo: "Basic information",
       location: "Location",
       description: "Description",
-      needs: "Plants needs",
+      needs: "Plant needs",
       soilType: "Type of soil",
       sunlight: "Sunlight",
       sunlightOptions: {

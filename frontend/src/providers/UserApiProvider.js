@@ -26,7 +26,7 @@ const removeRefreshToken = () => {
 
 const UserApiProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { strings } = useLocalizedStrings();
+  const { strings, getLanguage } = useLocalizedStrings();
   const { dispatchError, dispatchSuccess } = useMessage();
 
   const RESPONSE_ACTION_MAP = {
@@ -185,7 +185,8 @@ const UserApiProvider = ({ children }) => {
 
   const registerUser = async ({ name, email, password }) => {
     setIsLoading(true);
-    const response = await userApi.register({ name, email, password });
+    const lang = getLanguage();
+    const response = await userApi.register({ name, email, password, lang });
     const {
       status,
       headers: { message },
@@ -195,7 +196,8 @@ const UserApiProvider = ({ children }) => {
 
   const confirmUser = async (confirmationToken) => {
     setIsLoading(true);
-    const response = await userApi.confirmUser(confirmationToken);
+    const lang = getLanguage();
+    const response = await userApi.confirmUser(confirmationToken, lang);
     const {
       status,
       headers: { message },
@@ -205,9 +207,11 @@ const UserApiProvider = ({ children }) => {
 
   const resendConfirmationMail = async ({ resend, userId }) => {
     setIsLoading(true);
+    const lang = getLanguage();
     const response = await userApi.resendConfirmationMail({
       resend,
       userId,
+      lang
     });
     const {
       status,
@@ -269,8 +273,9 @@ const UserApiProvider = ({ children }) => {
       return { error };
     } else {
       const access_token = getAccessToken();
+      const lang = getLanguage();
       if (access_token) {
-        const response = await userApi.editEmail(data, access_token);
+        const response = await userApi.editEmail(data, access_token, lang);
         console.log(response);
         const {
           status,
@@ -298,8 +303,9 @@ const UserApiProvider = ({ children }) => {
       return { error };
     } else {
       const access_token = getAccessToken();
+      const lang = getLanguage();
       if (access_token) {
-        const response = await userApi.editPassword(data, access_token);
+        const response = await userApi.editPassword(data, access_token, lang);
         const {
           status,
           headers: { message },
@@ -326,8 +332,9 @@ const UserApiProvider = ({ children }) => {
       return { error };
     } else {
       const access_token = getAccessToken();
+      const lang = getLanguage();
       if (access_token) {
-        const response = await userApi.deleteUserAccount(access_token);
+        const response = await userApi.deleteUserAccount(access_token, lang);
         const {
           status,
           headers: { message }
