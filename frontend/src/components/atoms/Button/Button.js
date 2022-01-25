@@ -1,11 +1,13 @@
 import "./Button.css";
 
-export default function Button({ text, type, onClick, icon, filled, disabled }) {
+export default function Button({ text, type, onClick, icon, filled, disabled, danger }) {
   const className = disabled
     ? "btn disabled"
-    : filled
-      ? "btn btn--filled"
-      : "btn btn--outline";
+    : danger 
+      ? "btn btn--danger" 
+      : filled
+        ? "btn btn--filled"
+        : "btn btn--outline";
   return (
     <button
       className={className}

@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import { format, toDate } from "date-fns";
-import MainSectionContainer from "components/containers/MainSectionContainer/MainSectionContainer";
-import PageHeader from "components/atoms/PageHeader/PageHeader";
-import DataSection from "components/molecules/DataSection/DataSection";
-import DataItem from "components/molecules/DataSection/DataItem";
-import Bar from "components/atoms/Bar/Bar";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import { useMessage } from 'providers/MessageProvider'
 import { useAuth } from "providers/AuthProvider";
 import localeMap from "util/locale-map";
-import { avatarIcon, envelopeIcon, keyIcon } from "assets/icons";
+import MainSectionContainer from "components/containers/MainSectionContainer/MainSectionContainer";
+import PageHeader from "components/atoms/PageHeader/PageHeader";
+import MyAccountDataSection from "components/molecules/MyAccount/MyAccountDataSection";
+import MyAccountDataSectionIcon from "components/molecules/MyAccount/MyAccountDataSectionIcon";
+import MyAccountDataSectionList from "components/molecules/MyAccount/MyAccountDataSectionList";
+import MyAccountDataSectionListItem from "components/molecules/MyAccount/MyAccountDataSectionListItem";
+import MyAccountDataSectionButton from "components/molecules/MyAccount/MyAccountDataSectionButton";
+import Bar from "components/atoms/Bar/Bar";
+
+import { avatarIcon, envelopeIcon, keyIcon, deleteIcon, pencilIcon } from "assets/icons";
 import EditNameModal from "components/organisms/EditNameModal/EditNameModal";
 import EditEmailModal from "components/organisms/EditEmailModal/EditEmailModal";
 import EditPasswordModal from "components/organisms/EditPasswordModal/EditPasswordModal";
 import Success from 'components/atoms/Success/Success'
+import Button from "components/atoms/Button/Button";
+import DeleteAccountModal from "components/organisms/DeleteAccountModal/DeleteAccountModal";
 
 export default function MyAccount() {
   const { strings, getLanguage } = useLocalizedStrings();
@@ -22,6 +28,7 @@ export default function MyAccount() {
   const [isEditNameModalOpen, setEditNameModalOpen] = useState(false);
   const [isEditEmailModalOpen, setEditEmailModalOpen] = useState(false);
   const [isEditPasswordModalOpen, setEditPasswordModalOpen] = useState(false);
+  const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
 
   const [myData, setMyData] = useState(user);
 
@@ -43,6 +50,10 @@ export default function MyAccount() {
     setEditPasswordModalOpen(!isEditPasswordModalOpen);
   };
 
+  const toggleDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(!isDeleteAccountModalOpen);
+  }
+
   useEffect(() => {
     setMyData(user);
   }, [user]);
@@ -54,33 +65,73 @@ export default function MyAccount() {
         description={strings.myaccount.description}
       />
       {success && <Success message={success} />}
-      <DataSection icon={avatarIcon} onEditBtnClick={toggleEditNameModal}>
-        <DataItem name={strings.myaccount.dataLabel.name} value={myData.name} />
-        <DataItem
-          name={strings.myaccount.dataLabel.dateCreated}
-          value={format(toDate(myData.dateCreated), "PPP", {
-            locale: localeMap[getLanguage()],
-          })}
-        />
-        <DataItem
-          name={strings.myaccount.dataLabel.plantsQty}
-          value={myData.plants.length}
-        />
-      </DataSection>
+      <MyAccountDataSection>
+        <MyAccountDataSectionIcon icon={avatarIcon} />
+        <MyAccountDataSectionList>
+          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.name} value={myData.name} />
+          <MyAccountDataSectionListItem 
+            name={strings.myaccount.dataLabel.dateCreated}
+            value={format(toDate(myData.dateCreated), "PPP", {
+              locale: localeMap[getLanguage()],
+            })}
+          />
+          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.plantsQty} value={myData.plants.length} />
+        </MyAccountDataSectionList>
+        <MyAccountDataSectionButton>
+          <Button
+            text={strings.myaccount.editBtn}
+            type="button"
+            onClick={toggleEditNameModal}
+            icon={pencilIcon}
+          />
+        </MyAccountDataSectionButton>
+      </MyAccountDataSection>
       <Bar />
-      <DataSection icon={envelopeIcon} onEditBtnClick={toggleEditEmailModal} disabled={myData.email === 'home@jungle.com'}>
-        <DataItem
-          name={strings.myaccount.dataLabel.email}
-          value={myData.email}
-        />
-      </DataSection>
+      <MyAccountDataSection>
+        <MyAccountDataSectionIcon icon={envelopeIcon} />
+        <MyAccountDataSectionList>
+          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.email} value={myData.email} />
+        </MyAccountDataSectionList>
+        <MyAccountDataSectionButton>
+        <Button
+            text={strings.myaccount.editBtn}
+            type="button"
+            onClick={toggleEditEmailModal}
+            icon={pencilIcon}
+          />
+        </MyAccountDataSectionButton>
+      </MyAccountDataSection>
       <Bar />
-      <DataSection icon={keyIcon} onEditBtnClick={toggleEditPasswordModal} disabled={myData.email === 'home@jungle.com'}>
-        <DataItem
-          name={strings.myaccount.dataLabel.password}
-          value="********"
-        />
-      </DataSection>
+      <MyAccountDataSection>
+        <MyAccountDataSectionIcon icon={keyIcon} />
+        <MyAccountDataSectionList>
+          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.password} value="********" />
+        </MyAccountDataSectionList>
+        <MyAccountDataSectionButton>
+        <Button
+            text={strings.myaccount.editBtn}
+            type="button"
+            onClick={toggleEditPasswordModal}
+            icon={pencilIcon}
+          />
+        </MyAccountDataSectionButton>
+      </MyAccountDataSection>
+      <Bar />
+      <MyAccountDataSection>
+        <MyAccountDataSectionIcon icon={deleteIcon} />
+        <MyAccountDataSectionList>
+          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.deleteAccount} />
+        </MyAccountDataSectionList>
+        <MyAccountDataSectionButton>
+          <Button 
+            text={strings.myaccount.dataLabel.deleteAccount}
+            type="button"
+            onClick={toggleDeleteAccountModal}
+            icon={deleteIcon}
+            danger
+          />
+        </MyAccountDataSectionButton>
+      </MyAccountDataSection>
       <Bar />
       <EditNameModal
         isOpen={isEditNameModalOpen}
@@ -95,6 +146,11 @@ export default function MyAccount() {
       <EditPasswordModal
         isOpen={isEditPasswordModalOpen}
         toggleIsOpen={toggleEditPasswordModal}
+        user={myData}
+      />
+      <DeleteAccountModal
+        isOpen={isDeleteAccountModalOpen}
+        toggleIsOpen={toggleDeleteAccountModal}
         user={myData}
       />
     </MainSectionContainer>

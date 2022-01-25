@@ -11,9 +11,9 @@ export default function DeletePlantModal({ isOpen, toggleIsOpen, plant: { id, na
   const { authFallback, reloadUser } = useAuth();
   const [deletePlant] = useDeletePlantMutation();
 
-  const submitDeletePlant = async () => {
+  const submitDeletePlant = () => {
     try {
-      await deletePlant(id).unwrap();
+      deletePlant(id);
       navigate("/");
       reloadUser();
     } catch (e) {
@@ -21,7 +21,7 @@ export default function DeletePlantModal({ isOpen, toggleIsOpen, plant: { id, na
         authFallback({
           callbackFn: (args) => {
             deletePlant(args);
-            navigate.push("/");
+            navigate("/");
             reloadUser();
           },
           args: id,
@@ -39,7 +39,7 @@ export default function DeletePlantModal({ isOpen, toggleIsOpen, plant: { id, na
         name
       )}
     >
-      <div className="plant-item-modal-message">
+      <div className="modal-message">
         {strings.formatString(
           strings.plants.deletePlantModal.message,
           name
@@ -49,7 +49,7 @@ export default function DeletePlantModal({ isOpen, toggleIsOpen, plant: { id, na
         type="button"
         text={strings.plants.deletePlantModal.deleteBtn}
         onClick={submitDeletePlant}
-        filled
+        danger
       />
       <div style={{"height": "var(--spacing-s)"}}/>
       <Button

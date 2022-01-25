@@ -1,0 +1,49 @@
+.myaccount-data-section {
+    display: flex;
+    flex-direction: row;
+    padding: var(--spacing-l) 0;
+}
+
+.myaccount-data-section-icon {
+    font-size: 36px;
+    margin: 0 48px 0 16px;
+}
+
+.myaccount-data-section-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 5;
+}
+
+.myaccount-data-section-list > div {
+    flex: 50%;
+}
+
+.myaccount-data-section-list-item {
+    display: block;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.myaccount-data-section-list-item-name {
+    color: var(--color-anthracite);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-heavy);
+    margin: 0;
+    line-height: var(--line-height-normal);
+}
+
+.myaccount-data-section-list-item-value {
+    color: var(--color-anthracite);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-light);
+    margin: 0;
+    line-height: var(--line-height-normal);
+}
+
+.myaccount-data-section-button {
+    align-items: center;
+    display: flex;
+    flex: 3;
+}

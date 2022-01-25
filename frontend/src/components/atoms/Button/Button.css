@@ -1,54 +1,63 @@
 .btn {
-  align-items: center;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 0;
-  outline: none;
-  padding: 12px;
-  transition: all 0.15s ease;
-  width: 100%;
+    align-items: center;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+    outline: none;
+    padding: 12px;
+    transition: all 0.15s ease;
+    width: 100%;
 }
 
 .btn.disabled {
-  cursor: default;
-  box-shadow: inset 0 0 0 2px var(--color-bar);
-  background-color: transparent;
-  color: var(--color-bar);
+    cursor: default;
+    box-shadow: inset 0 0 0 2px var(--color-bar);
+    background-color: transparent;
+    color: var(--color-bar);
 }
 
 .btn--filled {
-  color: white;
-  background-color: var(--color-anthracite);
+    color: white;
+    background-color: var(--color-anthracite);
 }
 
 .btn--filled:hover {
-  background-color: var(--color-grey);
+    background-color: var(--color-grey);
 }
 
 .btn--outline {
-  color: var(--color-anthracite);
-  box-shadow: inset 0 0 0 2px var(--color-anthracite);
-  background-color: transparent;
+    color: var(--color-anthracite);
+    box-shadow: inset 0 0 0 2px var(--color-anthracite);
+    background-color: transparent;
 }
 
 .btn--outline:hover {
-  background-color: var(--color-grey);
-  color: white;
-  box-shadow: inset 0 0 0 2px var(--color-grey);
+    background-color: var(--color-grey);
+    color: white;
+    box-shadow: inset 0 0 0 2px var(--color-grey);
+}
+
+.btn--danger {
+    color: white;
+    background-color: var(--color-danger);
+}
+
+.btn--danger:hover {
+    background-color: var(--color-danger-2);
 }
 
 .btn-text {
-  font-size: var(--font-size-normal);
-  font-weight: var(--font-weight-heavy);
-  line-height: var(--line-height-normal);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-heavy);
+    line-height: var(--line-height-normal);
 }
 
 .btn-icon {
-  display: flex;
-  font-size: var(--font-size-m);
-  margin-right: 8px;
+    display: flex;
+    font-size: var(--font-size-m);
+    margin-right: 8px;
 }

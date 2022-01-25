@@ -4,10 +4,10 @@ import { useApi } from "providers/UserApiProvider";
 import { useAuth } from "providers/AuthProvider";
 import emailRegexPattern from "util/emailRegexPattern";
 import Modal from "components/molecules/Modal/Modal";
-import DataItem from "components/molecules/DataSection/DataItem";
 import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";
 import Button from "components/atoms/Button/Button";
+import MyAccountDataSectionListItem from "components/molecules/MyAccount/MyAccountDataSectionListItem";
 
 export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email } }) {
   const { strings } = useLocalizedStrings();
@@ -71,7 +71,7 @@ export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email
       onRequestClose={toggleIsOpen}
       headerText={strings.myaccount.editEmail.title}
     >
-      <DataItem
+      <MyAccountDataSectionListItem
         name={strings.myaccount.editEmail.input.currentEmail}
         value={email}
       />

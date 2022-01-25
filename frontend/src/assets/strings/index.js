@@ -67,6 +67,7 @@ const strings = new LocalizedStrings({
         password: "Your password",
         dateCreated: "Account active since",
         plantsQty: "Number of plants",
+        deleteAccount: "Delete account"
       },
       editBtn: "Edit",
       saveBtn: "Save",
@@ -87,6 +88,17 @@ const strings = new LocalizedStrings({
           newPassword: "New password",
           confirmNewPassword: "Confirm password",
         },
+      },
+      deleteAccount: {
+        title: "Delete account",
+        message: "All your data will be lost. Type in your password to delete your account.",
+        passwordInput: {
+          label: "Password*",
+          requiredMessage: "*Please enter password"
+        },
+        disclaimer: "* required fields",
+        deleteBtn: "Delete",
+        cancelBtn: "Cancel"
       },
       message: {
         "Bad credentials": "*Provided password is invalid.",
@@ -340,6 +352,7 @@ const strings = new LocalizedStrings({
         password: "Twoje hasło",
         dateCreated: "Konto aktywne od",
         plantsQty: "Ilość roślin",
+        deleteAccount: "Usuń konto"
       },
       editBtn: "Edytuj",
       saveBtn: "Zapisz",
@@ -360,6 +373,17 @@ const strings = new LocalizedStrings({
           newPassword: "Nowe hasło",
           confirmNewPassword: "Potwierdź hasło",
         },
+      },
+      deleteAccount: {
+        title: "Usuń konto",
+        message: "Wszystkie dane związane z Twoim kontem zostaną utracone. Podaj hasło, aby usunąć konto.",
+        passwordInput: {
+          label: "Hasło*",
+          requiredMessage: "*Wprowadź hasło"
+        },
+        disclaimer: "* pola wymagane",
+        deleteBtn: "Usuń",
+        cancelBtn: "Anuluj"
       },
       message: {
         "Bad credentials": "*Podane hasło jest nieprawidłowe.",
