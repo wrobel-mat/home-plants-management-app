@@ -24,7 +24,7 @@ const removeRefreshToken = () => {
   localStorage.removeItem("refreshJwt");
 };
 
-const ApiProvider = ({ children }) => {
+const UserApiProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { strings } = useLocalizedStrings();
   const { dispatchError, dispatchSuccess } = useMessage();
@@ -74,6 +74,11 @@ const ApiProvider = ({ children }) => {
           const { password } = JSON.parse(data);
           await authenticate({ username, password });
           dispatchSuccess(strings.serverResponseMessage[message]);
+          successHandler();
+          return {};
+        }
+        case "Delete User Successful": {
+          setIsLoading(false);
           successHandler();
           return {};
         }
@@ -148,6 +153,7 @@ const ApiProvider = ({ children }) => {
     404: (message) => () => {
       setIsLoading(false);
       dispatchError(strings.serverResponseMessage[message]);
+      return {};
     },
     500: (message) => (response) => {
       switch (message) {
@@ -312,6 +318,34 @@ const ApiProvider = ({ children }) => {
     }
   };
 
+  const deleteUserAccount = async ({credentials, successHandler}) => {
+    setIsLoading(true);
+    const { error } = await authenticate(credentials);
+    if (error) {
+      setIsLoading(false);
+      return { error };
+    } else {
+      const access_token = getAccessToken();
+      if (access_token) {
+        const response = await userApi.deleteUserAccount(access_token);
+        const {
+          status,
+          headers: { message }
+        } = response;
+        const callback = {
+          callbackFn: deleteUserAccount,
+          args: { credentials, successHandler }
+        };
+        return await RESPONSE_ACTION_MAP[status](message)(
+          response,
+          callback,
+          successHandler
+        );
+      }
+      setIsLoading(false);
+    }
+  };
+
   // == logout
   const removeTokens = () => {
     removeAccessToken();
@@ -345,6 +379,7 @@ const ApiProvider = ({ children }) => {
         editUserName,
         editUserEmail,
         editUserPassword,
+        deleteUserAccount
       }}
     >
       {children}
@@ -362,4 +397,4 @@ export const useApi = () => {
   return api;
 };
 
-export default ApiProvider;
+export default UserApiProvider;

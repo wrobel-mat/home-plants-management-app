@@ -1,6 +1,6 @@
 import { Collapse } from "react-collapse";
 import { useMessage } from "providers/MessageProvider";
-import { useApi } from "providers/ApiProvider";
+import { useApi } from "providers/UserApiProvider";
 import Error from "components/atoms/Error/Error";
 import Button from "components/atoms/Button/Button";
 import Success from "components/atoms/Success/Success";

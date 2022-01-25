@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
-import { useApi } from "providers/ApiProvider";
+import { useApi } from "providers/UserApiProvider";
 import emailRegexPattern from "util/emailRegexPattern";
 import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";

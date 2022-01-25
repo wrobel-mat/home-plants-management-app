@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
-import { useApi } from "providers/ApiProvider";
+import { useApi } from "providers/UserApiProvider";
 import { useAuth } from "providers/AuthProvider";
 import Modal from "components/molecules/Modal/Modal";
 import Form from "components/molecules/Form/Form";

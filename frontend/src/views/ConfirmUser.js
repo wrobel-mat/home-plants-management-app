@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import { useMessage } from "providers/MessageProvider";
-import { useApi } from "providers/ApiProvider";
+import { useApi } from "providers/UserApiProvider";
 import useQuery from "hooks/useQuery";
 import MainSectionContainer from "components/containers/MainSectionContainer/MainSectionContainer";
 import PageHeader from "components/atoms/PageHeader/PageHeader";
