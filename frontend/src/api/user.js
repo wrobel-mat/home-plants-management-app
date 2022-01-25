@@ -3,7 +3,7 @@ import axios from "axios";
 const apiPath = "/api/user";
 
 const userApi = {
-    login: async ({ username, password }) => {
+  login: async ({ username, password }) => {
     try {
       const data = new URLSearchParams();
       data.append("username", username);
@@ -102,30 +102,42 @@ const userApi = {
       console.log(e);
     }
   },
-     getMe: async (access_token) => {
-       try {
-         return await axios.get(apiPath + "/me", {
-           headers: { Authorization: `Bearer ${access_token}` },
-         });
-       } catch (e) {
-         if (e.response) {
-           return e.response;
-         }
-         console.log(e);
-       }
-     },
-     refreshToken: async (refresh_token) => {
-       try {
-         return await axios.get(apiPath + "/refresh-jwt", {
-           headers: { Authorization: `Bearer ${refresh_token}` },
-         });
-       } catch (e) {
-         if (e.response) {
-           return e.response;
-         }
-         console.log(e);
-       }
-     }
+  deleteUserAccount: async (access_token) => {
+    try {
+      return await axios.delete(apiPath, {
+        headers: { Authorization: `Bearer ${access_token}`}
+      });
+    } catch (e) {
+      if (e.response) {
+        return e.response;
+      }
+      console.log(e);
+    }
+  },
+  getMe: async (access_token) => {
+    try {
+      return await axios.get(apiPath + "/me", {
+        headers: { Authorization: `Bearer ${access_token}` },
+      });
+    } catch (e) {
+      if (e.response) {
+        return e.response;
+      }
+      console.log(e);
+    }
+  },
+  refreshToken: async (refresh_token) => {
+    try {
+      return await axios.get(apiPath + "/refresh-jwt", {
+        headers: { Authorization: `Bearer ${refresh_token}` },
+      });
+    } catch (e) {
+      if (e.response) {
+        return e.response;
+      }
+      console.log(e);
+    }
+  }
 };
 
 export default userApi;
