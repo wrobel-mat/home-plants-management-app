@@ -8,13 +8,14 @@ import com.wrobelmat.homejungle.exceptions.confirmation_token.ConfirmationTokenN
 import com.wrobelmat.homejungle.exceptions.user.UserAlreadyConfirmedException;
 import com.wrobelmat.homejungle.exceptions.user.UserAlreadyRegisteredException;
 import com.wrobelmat.homejungle.exceptions.user.UserNotFoundException;
+import com.wrobelmat.homejungle.plant_img.PlantImgService;
 import com.wrobelmat.homejungle.user.projections.RegisterUserForm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static com.wrobelmat.homejungle.user.UserRole.ROLE_USER;
 
@@ -34,34 +35,16 @@ public class UserService {
     private final ConfirmationTokenService confirmationTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final EmailSender emailSender;
+    private final PlantImgService plantImgService;
 
     //TODO: rework email notifications template (make it prettier and add localization maybe?)
 
-    public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSender emailSender) {
+    public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService, BCryptPasswordEncoder bCryptPasswordEncoder, EmailSender emailSender, PlantImgService plantImgService) {
         this.userRepository = userRepository;
         this.confirmationTokenService = confirmationTokenService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.emailSender = emailSender;
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public void updateUser(String userId, User user) {
-        User toUpdate = userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
-        toUpdate.updateFrom(user);
-        userRepository.save(toUpdate);
-    }
-
-    public void deleteById(String userId) {
-        userRepository.deleteById(userId);
-    }
-
-    public User findById(String userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+        this.plantImgService = plantImgService;
     }
 
     public User findByEmail(String email) {
@@ -124,12 +107,6 @@ public class UserService {
         }
     }
 
-    public User addUser(User user) {
-        String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
-        return userRepository.save(user);
-    }
-
     public void editUserName(String id, String name) {
         User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new);
@@ -174,5 +151,12 @@ public class UserService {
                 uriPrefix + domainName + userConfirmationEndpoint + "?token=" + token.getToken() + "\n " +
                 "The link is active for 30 minutes.";
         emailSender.send(receiver, subject, messageContent);
+    }
+
+    @Transactional
+    public void deleteUser(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        user.getPlants().forEach(plant -> plantImgService.deleteAllPlantImages(plant.getPlantImgDetailsList()));
+        userRepository.delete(user);
     }
 }

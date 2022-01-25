@@ -1,11 +1,8 @@
 package com.wrobelmat.homejungle.user;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-
-    List<User> findAll();
 
     Optional<User> findById(String userId);
 
@@ -15,5 +12,5 @@ public interface UserRepository {
 
     User save(User user);
 
-    void deleteById(String userId);
+    void delete(User user);
 }

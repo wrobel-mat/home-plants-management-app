@@ -132,4 +132,13 @@ public class UserController {
             throw new RuntimeException("Refresh token is missing");
         }
     }
+
+    @DeleteMapping
+    ResponseEntity<?> deleteUser(Authentication authentication) {
+        userService.deleteUser(authentication.getName());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("message", "Delete User Successful")
+                .build();
+    }
 }

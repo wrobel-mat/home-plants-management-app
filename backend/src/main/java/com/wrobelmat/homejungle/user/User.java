@@ -127,12 +127,6 @@ public class User {
         return dateCreated;
     }
 
-    public void updateFrom(User user) {
-        this.enabled = user.enabled;
-        this.locked = user.locked;
-        this.role = user.role;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
