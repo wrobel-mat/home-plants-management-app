@@ -4,10 +4,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wrobelmat.homejungle.exception_handler.ExceptionHandlerProcessing;
 import com.wrobelmat.homejungle.jwt.JwtUtil;
-import com.wrobelmat.homejungle.user.projections.EditUserEmailForm;
-import com.wrobelmat.homejungle.user.projections.EditUserNameForm;
-import com.wrobelmat.homejungle.user.projections.EditUserPasswordForm;
-import com.wrobelmat.homejungle.user.projections.RegisterUserForm;
+import com.wrobelmat.homejungle.user.projections.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,33 +36,33 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    ResponseEntity<User> getUserDetails(Authentication authentication) {
+    ResponseEntity<UserReadModel> getUserDetails(Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Get Me Successful")
-                .body(user);
+                .body(new UserReadModel(user));
     }
 
     @PostMapping(value = "/register")
-    ResponseEntity<User> registerUser(@RequestBody @Valid RegisterUserForm registerUserForm,
+    ResponseEntity<UserReadModel> registerUser(@RequestBody @Valid UserRegisterModel userRegisterModel,
                                       @RequestParam(required = false, value = "lang") String lang) {
-        User newUser = userService.registerUser(registerUserForm, lang);
+        User newUser = userService.registerUser(userRegisterModel, lang);
         URI location = URI.create("/" + newUser.getId());
         return ResponseEntity
                 .created(location)
                 .header("message", "Register User Successful")
-                .body(newUser);
+                .body(new UserReadModel(newUser));
     }
 
     @PostMapping(value = "/confirm", params = "token")
-    ResponseEntity<User> confirmUser(@RequestParam("token") String token,
+    ResponseEntity<UserReadModel> confirmUser(@RequestParam("token") String token,
                                      @RequestParam(required = false, value = "lang") String lang) {
         User confirmedUser = userService.confirmUser(token, lang);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Confirm User Successful")
-                .body(confirmedUser);
+                .body(new UserReadModel(confirmedUser));
     }
 
     @PostMapping(value = "/confirm", params = "!token")
@@ -80,8 +77,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit-name")
-    ResponseEntity<User> editUserName(@RequestBody @Valid EditUserNameForm editUserNameForm) {
-        userService.editUserName(editUserNameForm.getUserId(), editUserNameForm.getName());
+    ResponseEntity<?> editUserName(@RequestBody @Valid EditUserNameModel editUserNameModel) {
+        userService.editUserName(editUserNameModel.getUserId(), editUserNameModel.getName());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Edit User Name Successful")
@@ -89,23 +86,31 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit-email")
-    ResponseEntity<User> editUserEmail(@RequestBody @Valid EditUserEmailForm editUserEmailForm,
+    ResponseEntity<UserReadModel> editUserEmail(@RequestBody @Valid EditUserEmailModel editUserEmailModel,
                                        @RequestParam(required = false, value = "lang") String lang) {
-        User editedUser = userService.editUserEmail(editUserEmailForm.getUserId(), editUserEmailForm.getEmail(), lang);
+        User editedUser = userService.editUserEmail(
+                editUserEmailModel.getUserId(),
+                editUserEmailModel.getEmail(),
+                lang
+        );
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Edit User Email Successful")
-                .body(editedUser);
+                .body(new UserReadModel(editedUser));
     }
 
     @PostMapping(value = "/edit-password")
-    ResponseEntity<User> editUserPassword(@RequestBody @Valid EditUserPasswordForm editUserPasswordForm,
+    ResponseEntity<UserReadModel> editUserPassword(@RequestBody @Valid EditUserPasswordModel editUserPasswordModel,
                                           @RequestParam(required = false, value = "lang") String lang) {
-        User editedUser = userService.editUserPassword(editUserPasswordForm.getUserId(), editUserPasswordForm.getPassword(), lang);
+        User editedUser = userService.editUserPassword(
+                editUserPasswordModel.getUserId(),
+                editUserPasswordModel.getPassword(),
+                lang
+        );
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("message", "Edit User Password Successful")
-                .body(editedUser);
+                .body(new UserReadModel(editedUser));
     }
 
     @GetMapping(value = "/refresh-jwt")

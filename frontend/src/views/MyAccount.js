@@ -75,7 +75,7 @@ export default function MyAccount() {
               locale: localeMap[getLanguage()],
             })}
           />
-          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.plantsQty} value={myData.plants.length} />
+          <MyAccountDataSectionListItem name={strings.myaccount.dataLabel.plantsQty} value={myData.plantsCount} />
         </MyAccountDataSectionList>
         <MyAccountDataSectionButton>
           <Button

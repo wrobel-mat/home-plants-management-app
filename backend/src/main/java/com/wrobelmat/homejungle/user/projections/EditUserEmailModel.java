@@ -1,16 +1,19 @@
 package com.wrobelmat.homejungle.user.projections;
 
+import com.wrobelmat.homejungle.validation.Email;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class EditUserNameForm {
+public class EditUserEmailModel {
 
     @NotNull
     private String userId;
-    @NotEmpty(message = "Name should not be empty.")
-    @Size(max = 100, message = "Max length for name is 100")
-    private String name;
+    @NotEmpty(message = "E-mail should not be empty.")
+    @Email
+    @Size(max = 100, message = "Max length for email is 100")
+    private String email;
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -20,11 +23,11 @@ public class EditUserNameForm {
         return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 }

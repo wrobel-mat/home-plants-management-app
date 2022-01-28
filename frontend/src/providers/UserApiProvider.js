@@ -276,7 +276,6 @@ const UserApiProvider = ({ children }) => {
       const lang = getLanguage();
       if (access_token) {
         const response = await userApi.editEmail(data, access_token, lang);
-        console.log(response);
         const {
           status,
           headers: { message },

@@ -5,7 +5,7 @@ import com.wrobelmat.homejungle.validation.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class RegisterUserForm {
+public class UserRegisterModel {
 
     @NotEmpty(message = "Please enter e-mail.")
     @Email
@@ -19,7 +19,7 @@ public class RegisterUserForm {
     @Size(max = 100, message = "Max length for name is 100")
     private final String name;
 
-    public RegisterUserForm(String email, String password, String name) {
+    public UserRegisterModel(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;

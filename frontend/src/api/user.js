@@ -76,7 +76,6 @@ const userApi = {
     }
   },
   editEmail: async (data, access_token, lang) => {
-    console.log(data, access_token);
     try {
       return await axios.post(apiPath + "/edit-email?lang=" + lang, data, {
         headers: {

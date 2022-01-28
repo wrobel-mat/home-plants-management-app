@@ -9,7 +9,7 @@ import com.wrobelmat.homejungle.exceptions.user.UserAlreadyConfirmedException;
 import com.wrobelmat.homejungle.exceptions.user.UserAlreadyRegisteredException;
 import com.wrobelmat.homejungle.exceptions.user.UserNotFoundException;
 import com.wrobelmat.homejungle.plant_img.PlantImgService;
-import com.wrobelmat.homejungle.user.projections.RegisterUserForm;
+import com.wrobelmat.homejungle.user.projections.UserRegisterModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,15 +52,15 @@ public class UserService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public User registerUser(RegisterUserForm registerUserForm, String lang) {
-        if (userRepository.existsByEmail(registerUserForm.getEmail())) {
+    public User registerUser(UserRegisterModel userRegisterModel, String lang) {
+        if (userRepository.existsByEmail(userRegisterModel.getEmail())) {
             throw new UserAlreadyRegisteredException();
         } else {
-            final String encryptedPassword = bCryptPasswordEncoder.encode(registerUserForm.getPassword());
+            final String encryptedPassword = bCryptPasswordEncoder.encode(userRegisterModel.getPassword());
             User user = new User(
-                    registerUserForm.getEmail(),
+                    userRegisterModel.getEmail(),
                     encryptedPassword,
-                    registerUserForm.getName(),
+                    userRegisterModel.getName(),
                     ROLE_USER.name());
             final User createdUser =
                     userRepository.save(user);
