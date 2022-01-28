@@ -35,26 +35,26 @@ export default function DeletePlantModal({ isOpen, toggleIsOpen, plant: { id, na
       isOpen={isOpen}
       onRequestClose={toggleIsOpen}
       headerText={strings.formatString(
-        strings.plants.deletePlantModal.title,
+        strings.plant.deletePlantForm.header,
         name
       )}
     >
       <div className="modal-message">
         {strings.formatString(
-          strings.plants.deletePlantModal.message,
+          strings.plant.deletePlantForm.message,
           name
         )}
       </div>
       <Button
         type="button"
-        text={strings.plants.deletePlantModal.deleteBtn}
+        text={strings.form.deleteBtn}
         onClick={submitDeletePlant}
         danger
       />
       <div style={{"height": "var(--spacing-s)"}}/>
       <Button
         type="button"
-        text={strings.plants.deletePlantModal.cancelBtn}
+        text={strings.form.cancelBtn}
         onClick={toggleIsOpen}
       />
     </Modal>

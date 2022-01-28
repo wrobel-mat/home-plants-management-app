@@ -9,7 +9,7 @@ import Input from "components/molecules/Form/Input";
 import Button from "components/atoms/Button/Button";
 import MyAccountDataSectionListItem from "components/molecules/MyAccount/MyAccountDataSectionListItem";
 
-export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email } }) {
+export default function EditUserEmailModal({ isOpen, toggleIsOpen, user: { id, email } }) {
   const { strings } = useLocalizedStrings();
   const { editUserEmail } = useApi();
   const { reloadUser } = useAuth();
@@ -69,10 +69,10 @@ export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email
     <Modal
       isOpen={isOpen}
       onRequestClose={toggleIsOpen}
-      headerText={strings.myaccount.editEmail.title}
+      headerText={strings.user.editEmailForm.header}
     >
       <MyAccountDataSectionListItem
-        name={strings.myaccount.editEmail.input.currentEmail}
+        name={strings.user.editEmailForm.currentEmail}
         value={email}
       />
       <Form onSubmit={submitEditEmail}>
@@ -80,13 +80,13 @@ export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email
           name={FORM_FIELDS.newEmail}
           type="text"
           id={nanoid()}
-          label={strings.myaccount.editEmail.input.newEmail}
-          placeholder={strings.authPage.email.placeholder}
+          label={strings.user.editEmailForm.newEmail}
+          placeholder={strings.user.editEmailForm.newEmail}
           registerOpt={{
-            required: strings.authPage.email.message.required,
+            required: strings.user.formMessages.emailRequired,
             pattern: {
               value: emailRegexPattern,
-              message: strings.authPage.email.message.pattern,
+              message: strings.user.formMessages.emailPattern,
             },
           }}
         />
@@ -94,13 +94,13 @@ export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email
           name={FORM_FIELDS.confirmEmail}
           type="text"
           id={nanoid()}
-          label={strings.myaccount.editEmail.input.confirmNewEmail}
-          placeholder={strings.authPage.email.placeholder}
+          label={strings.user.editEmailForm.confirmNewEmail}
+          placeholder={strings.user.editEmailForm.confirmNewEmail}
           registerOpt={{
-            required: strings.authPage.email.message.required,
+            required: strings.user.formMessages.emailRequired,
             pattern: {
               value: emailRegexPattern,
-              message: strings.authPage.email.message.pattern,
+              message: strings.user.formMessages.emailPattern,
             },
           }}
         />
@@ -108,13 +108,13 @@ export default function EditEmailModal({ isOpen, toggleIsOpen, user: { id, email
           name={FORM_FIELDS.password}
           type="password"
           id={nanoid()}
-          label={strings.authPage.password.label}
-          placeholder={strings.authPage.password.placeholder}
+          label={strings.user.password}
+          placeholder={strings.user.password}
           registerOpt={{
-            required: strings.authPage.password.message.required,
+            required: strings.user.formMessages.passwordRequired,
           }}
         />
-        <Button type="submit" text={strings.myaccount.saveBtn} filled />
+        <Button type="submit" text={strings.form.saveBtn} filled />
       </Form>
     </Modal>
   );

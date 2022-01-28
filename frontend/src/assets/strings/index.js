@@ -2,46 +2,52 @@ import LocalizedStrings from "react-localization";
 
 const strings = new LocalizedStrings({
   en: {
-    authPage: {
-      login: {
-        label: "Login",
-        header: "Welcome back!",
+    form: {
+      requiredFieldMarker: "*",
+      requiredFieldsDisclaimer: "* required fields",
+      saveBtn: "Save",
+      editBtn: "Edit",
+      cancelBtn: "Cancel",
+      deleteBtn: "Delete",
+      loginBtn: "Login",
+      registerBtn: "Register"
+    },
+    user: {
+      name: "Name",
+      email: "E-mail address",
+      password: "Password",
+      loginForm: {
+        header: "Welcome back!"
       },
-      register: {
-        label: "Register",
-        header: "I'm here for the first time",
-        disclaimer: "* required fields",
-        message: {
-          "User Already Registered":
-            "*This e-mail address is already in use. Please enter a different e-mail address.",
-        },
+      registerForm: {
+        header: "I'm here for the first time"
       },
-      email: {
-        name: "email",
-        label: "E-mail address",
-        placeholder: "E-mail address",
-        message: {
-          required: "*Please enter your e-mail address",
-          pattern:
-            "*Please provide valid e-mail address (e.g. marie.curie@passy.fr)",
-        },
+      editNameForm: {
+        header: "Update my name",
       },
-      password: {
-        name: "password",
-        label: "Password",
-        placeholder: "Password",
-        message: {
-          required: "*Please enter password",
-        },
+      editEmailForm: {
+        header: "Change your e-mail address",
+        currentEmail: "Current e-mail address",
+        newEmail: "New e-mail address",
+        confirmNewEmail: "Confirm new e-mail address"
       },
-      username: {
-        name: "name",
-        label: "Name",
-        placeholder: "Name",
-        message: {
-          required: "*Please enter your name",
-        },
+      editPasswordForm: {
+        header: "Change your password",
+        currentPassword: "Current password",
+        newPassword: "New password",
+        confirmNewPassword: "Confirm password"
       },
+      deleteAccountForm: {
+        header: "Delete account",
+        message: "All your data will be lost. Type in your password to delete your account."
+      },
+      formMessages: {
+        nameRequired: "*Please enter your name",
+        emailRequired: "*Please enter your e-mail address",
+        passwordRequired: "*Please enter your password",
+        emailPattern: "*Please provide a valid e-mail address (np. marie.curie@passy.fr)",
+        emailInUse: "*This e-mail address is already in use. Please enter a different e-mail address."
+      }
     },
     footer: {
       about: "About",
@@ -69,37 +75,6 @@ const strings = new LocalizedStrings({
         plantsQty: "Number of plants",
         deleteAccount: "Delete account"
       },
-      editBtn: "Edit",
-      saveBtn: "Save",
-      editName: {
-        title: "Update my name",
-      },
-      editEmail: {
-        title: "Change your e-mail address",
-        input: {
-          currentEmail: "Current e-mail address",
-          newEmail: "New e-mail address",
-          confirmNewEmail: "Confirm new e-mail address",
-        },
-      },
-      editPassword: {
-        title: "Change your password",
-        input: {
-          newPassword: "New password",
-          confirmNewPassword: "Confirm password",
-        },
-      },
-      deleteAccount: {
-        title: "Delete account",
-        message: "All your data will be lost. Type in your password to delete your account.",
-        passwordInput: {
-          label: "Password*",
-          requiredMessage: "*Please enter password"
-        },
-        disclaimer: "* required fields",
-        deleteBtn: "Delete",
-        cancelBtn: "Cancel"
-      },
       message: {
         "Bad credentials": "*Provided password is invalid.",
         "User Already Registered":
@@ -115,39 +90,16 @@ const strings = new LocalizedStrings({
       title: "My plants",
       addPlantBtn: "Add new plant",
       noPlantsMsg: "Add your first plant",
-      addPlantModal: {
-        title: "Add new plant",
-        plantName: "Plant name*",
-        plantNamePlaceholder: "Plant name",
-        plantNameRequiredMsg: "Your plant should have a name",
-        plantSpecies: "Plant species",
-        plantSpeciesPlaceholder: "Plant species",
-        plantImg: "Plant image",
-        plantImgMessage: "The image size must be less than 1MB",
-        submitBtn: "Add plant",
-        disclaimer: "* required fields",
-      },
-      deletePlantModal: {
-        title: "Delete {0}",
-        message:
-          "All data related with this plant will be lost. Are you sure you want to delete {0}?",
-        deleteBtn: "Delete",
-        cancelBtn: "Cancel",
-      },
-      updatePlantModal: {
-        title: "Update plant details",
-        plantName: "Plant name",
-        plantNameRequiredMsg: "Your plant should have a name",
-        plantImg: "Plant image",
-        plantImgMessage: "The image size must be less than 1MB",
-        submitBtn: "Save",
-      },
     },
     plant: {
-      goBack: "Go back",
       title: "Plant management",
       pageDescription:
         "Update latest events from your plants life. Edit and add more detailed information about it.",
+      tabs: {
+        info: "Details",
+        treatments: "Plant treatments",
+      },
+      plantImg: "Image",
       dateAdded: "Added on",
       editBtnTooltip: "Edit",
       deleteBtnTooltip: "Delete",
@@ -160,6 +112,7 @@ const strings = new LocalizedStrings({
       replantSuccess: "Plant has been replanted",
       fertilizeSuccess: "Plant has been fertilized",
       goToPlantsBtn: "My plants",
+      name: "Name",
       species: "Species",
       basicInfo: "Basic information",
       location: "Location",
@@ -181,8 +134,6 @@ const strings = new LocalizedStrings({
       tempRange: "Temperature range (min - max °C)",
       minTemp: "Minimum temperature",
       maxTemp: "Maximum temperature",
-      tempValidationMsg:
-        "The minimum value must be less than the maximum value",
       watering: "Watering",
       wateringOptions: {
         1: "Rarely but profusely, water when the soil is slightly dry",
@@ -207,6 +158,7 @@ const strings = new LocalizedStrings({
         true: "Yes",
         false: "No",
       },
+      noInformation: "No information",
       events: {
         sectionTitle: "Plant treatments",
         watering: "Watering",
@@ -223,17 +175,27 @@ const strings = new LocalizedStrings({
         fertilizeBtnTooltip: "Fertilize",
         submitTreatmentBtn: "Submit"
       },
-      editImgModal: {
-        title: "Update your plants image",
-        plantImg: "Plant image",
-        plantImgRequiredMsg: "Please select a picture",
-        plantImgMessage: "The image size must be less than 1MB",
-        submitBtn: "Save",
+      addPlantForm: {
+        header: "Add new plant",
+        submitBtn: "Add plant"
       },
-      tabs: {
-        info: "Details",
-        treatments: "Plant treatments",
+      deletePlantForm: {
+        header: "Delete {0}",
+        message: "All data related with this plant will be lost. Are you sure you want to delete {0}?"
       },
+      editPlantDetailsForm: {
+        header: "Update plant details"
+      },
+      editImgForm: {
+        header: "Update your plants image",
+        plantImg: "New image",
+      },
+      formMessages: {
+        nameRequired: "*Please enter your plants name",
+        imgRequired: "*Please select your plants image",
+        imgSize: "*Image size must be less than 1 MB",
+        tempValidation: "*The minimum value must be less than the maximum value",
+      }
     },
     confirmUser: {
       title: "Account confirmation",
@@ -285,48 +247,55 @@ const strings = new LocalizedStrings({
       serverError: "Server Error.",
       undefined: "Sorry, something went wrong.",
     },
-    inputMaxLengthMsg: "{0} must be less than {1} characters"
+    inputMaxLengthMsg: "*{0} must be less than {1} characters"
   },
   pl: {
-    authPage: {
-      login: {
-        label: "Zaloguj się",
-        header: "Witaj ponownie!",
+    form: {
+      requiredFieldMarker: "*",
+      requiredFieldsDisclaimer: "* pola wymagane",
+      saveBtn: "Zapisz",
+      editBtn: "Edytuj",
+      cancelBtn: "Anuluj",
+      deleteBtn: "Usuń",
+      loginBtn: "Zaloguj się",
+      registerBtn: "Zarejestruj się"
+    },
+    user: {
+      name: "Imię",
+      email: "Adres e-mail",
+      password: "Hasło",
+      loginForm: {
+        header: "Witaj ponownie!"
       },
-      register: {
-        label: "Zarejestruj się",
-        header: "Jestem tu pierwszy raz",
-        disclaimer: "* pola obowiązkowe",
-        message: {
-          "User Already Registered":
-            "*Ten adres e-mail jest już wykorzystany. Podaj inny adres e-mail.",
-        },
+      registerForm: {
+        header: "Jestem tu pierwszy raz"
       },
-      email: {
-        name: "email",
-        label: "Adres e-mail",
-        placeholder: "Adres e-mail",
-        message: {
-          required: "*Wprowadź swój adres e-mail",
-          pattern: "*Wprowadź poprawny adres e-mail (np. marie.curie@passy.fr)",
-        },
+      editNameForm: {
+        header: "Aktualizuj moje imie",
       },
-      password: {
-        name: "password",
-        label: "Hasło",
-        placeholder: "Hasło",
-        message: {
-          required: "*Wprowadź hasło",
-        },
+      editEmailForm: {
+        header: "Zmień adres e-mail",
+        currentEmail: "Aktualny adres e-mail",
+        newEmail: "Nowy adres e-mail",
+        confirmNewEmail: "Potwierdź nowy adres e-mail"
       },
-      username: {
-        name: "name",
-        label: "Imię",
-        placeholder: "Imię",
-        message: {
-          required: "*Wprowadź swoje imię",
-        },
+      editPasswordForm: {
+        header: "Zmień hasło",
+        currentPassword: "Aktualne hasło",
+        newPassword: "Nowe hasło",
+        confirmNewPassword: "Potwierdź hasło"
       },
+      deleteAccountForm: {
+        header: "Usuń konto",
+        message: "Wszystkie dane związane z Twoim kontem zostaną utracone. Podaj hasło, aby usunąć konto."
+      },
+      formMessages: {
+        nameRequired: "*Wprowadź swoje imię",
+        emailRequired: "*Wprowadź swój adres e-mail",
+        passwordRequired: "*Wprowadź hasło",
+        emailPattern: "*Wprowadź poprawny adres e-mail (np. marie.curie@passy.fr)",
+        emailInUse: "*Ten adres e-mail jest już wykorzystany. Podaj inny adres e-mail."
+      }
     },
     footer: {
       about: "O stronie",
@@ -354,37 +323,6 @@ const strings = new LocalizedStrings({
         plantsQty: "Ilość roślin",
         deleteAccount: "Usuń konto"
       },
-      editBtn: "Edytuj",
-      saveBtn: "Zapisz",
-      editName: {
-        title: "Aktualizuj moje imie",
-      },
-      editEmail: {
-        title: "Zmień adres e-mail",
-        input: {
-          currentEmail: "Aktualny adres e-mail",
-          newEmail: "Nowy adres e-mail",
-          confirmNewEmail: "Potwierdź nowy adres e-mail",
-        },
-      },
-      editPassword: {
-        title: "Zmień hasło",
-        input: {
-          newPassword: "Nowe hasło",
-          confirmNewPassword: "Potwierdź hasło",
-        },
-      },
-      deleteAccount: {
-        title: "Usuń konto",
-        message: "Wszystkie dane związane z Twoim kontem zostaną utracone. Podaj hasło, aby usunąć konto.",
-        passwordInput: {
-          label: "Hasło*",
-          requiredMessage: "*Wprowadź hasło"
-        },
-        disclaimer: "* pola wymagane",
-        deleteBtn: "Usuń",
-        cancelBtn: "Anuluj"
-      },
       message: {
         "Bad credentials": "*Podane hasło jest nieprawidłowe.",
         "User Already Registered":
@@ -400,40 +338,17 @@ const strings = new LocalizedStrings({
     plants: {
       title: "Moje rośliny",
       addPlantBtn: "Dodaj nową roślinę",
-      noPlantsMsg: "Dodaj swoją pierwszą roślinę",
-      addPlantModal: {
-        title: "Dodaj nową roślinę",
-        plantName: "Nazwa rośliny*",
-        plantNamePlaceholder: "Nazwa rośliny",
-        plantNameRequiredMsg: "Twoja roślina musi mieć nazwę",
-        plantSpecies: "Gatunek rośliny",
-        plantSpeciesPlaceholder: "Gatunek rośliny",
-        plantImg: "Zdjęcie rośliny",
-        plantImgMessage: "Rozmiar zdjęcia może mieć maksymalnie 1MB",
-        submitBtn: "Dodaj roślinę",
-        disclaimer: "* pola wymagane",
-      },
-      deletePlantModal: {
-        title: "Usuń {0}",
-        message:
-          "Wszystkie informacje związane z tą rośliną zostaną utracone. Czy na pewno chcesz usunąć {0}?",
-        deleteBtn: "Usuń",
-        cancelBtn: "Anuluj",
-      },
-      updatePlantModal: {
-        title: "Aktualizuj informacje o roślinie",
-        plantName: "Nazwa rośliny",
-        plantNameRequiredMsg: "Twoja roślina musi mieć nazwę",
-        plantImg: "Zdjęcie",
-        plantImgMessage: "Rozmiar zdjęcia może mieć maksymalnie 1MB",
-        submitBtn: "Zapisz",
-      },
+      noPlantsMsg: "Dodaj swoją pierwszą roślinę"
     },
     plant: {
-      goBack: "Powrót",
       title: "Zarządzaj rośliną",
       pageDescription:
         "Aktualizuj ostatnie wydarzenia z życia swojej rośliny, edytuj i dodawaj bardziej szczegółowe informacje na jej temat.",
+      tabs: {
+        info: "Informacje",
+        treatments: "Zabiegi roślinne",
+      },
+      plantImg: "Zdjęcie",
       dateAdded: "Data dodania",
       editBtnTooltip: "Edytuj",
       deleteBtnTooltip: "Usuń",
@@ -446,6 +361,7 @@ const strings = new LocalizedStrings({
       replantSuccess: "Roślina została przesadzona",
       fertilizeSuccess: "Roślina została nawieziona",
       goToPlantsBtn: "Moje rośliny",
+      name: "Nazwa",
       species: "Gatunek",
       basicInfo: "Podstawowe informacje",
       location: "Gdzie przebywa",
@@ -467,8 +383,6 @@ const strings = new LocalizedStrings({
       tempRange: "Zakres temperatury",
       minTemp: "Temperatura minimalna",
       maxTemp: "Temperatura maksymalna",
-      tempValidationMsg:
-        "Wartość minimalna powinna być niższa niż wartość maksymalna",
       watering: "Podlewanie",
       wateringOptions: {
         1: "Rzadko ale obficie, podlewać gdy ziemia lekko przeschnie",
@@ -493,6 +407,7 @@ const strings = new LocalizedStrings({
         true: "Tak",
         false: "Nie",
       },
+      noInformation: "Brak informacji",
       events: {
         sectionTitle: "Zabiegi roślinne",
         watering: "Podlewanie",
@@ -509,17 +424,28 @@ const strings = new LocalizedStrings({
         fertilizeBtnTooltip: "Nawieź",
         submitTreatmentBtn: "Wykonaj"
       },
-      editImgModal: {
-        title: "Zaktualizuj zdjęcie rośliny",
+      addPlantForm: {
+        header: "Dodaj nową roślinę",
+        submitBtn: "Dodaj roślinę"
+      },
+      deletePlantForm: {
+        header: "Usuń {0}",
+        message:
+          "Wszystkie informacje związane z tą rośliną zostaną utracone. Czy na pewno chcesz usunąć {0}?"
+      },
+      editPlantDetailsForm: {
+        header: "Aktualizuj informacje o roślinie"
+      },
+      editImgForm: {
+        header: "Zaktualizuj zdjęcie rośliny",
         plantImg: "Nowe zdjęcie",
-        plantImgRequiredMsg: "Proszę wybrać zdjęcie",
-        plantImgMessage: "Rozmiar zdjęcia może mieć maksymalnie 1MB",
-        submitBtn: "Zapisz",
       },
-      tabs: {
-        info: "Informacje",
-        treatments: "Zabiegi roślinne",
-      },
+      formMessages: {
+        nameRequired: "*Twoja roślina musi mieć nazwę",
+        imgRequired: "*Proszę wybrać zdjęcie",
+        imgSize: "*Rozmiar zdjęcia może mieć maksymalnie 1 MB",
+        tempValidation: "*Wartość minimalna powinna być niższa niż wartość maksymalna",
+      }
     },
     confirmUser: {
       title: "Potwierdzenie konta",
@@ -572,7 +498,7 @@ const strings = new LocalizedStrings({
       serverError: "Błąd serwera.",
       undefined: "Przepraszamy, coś poszło nie tak.",
     },
-    inputMaxLengthMsg: "{0} może mieć maksymalnie {1} znaków"
+    inputMaxLengthMsg: "*{0} może mieć maksymalnie {1} znaków"
   },
 });
 

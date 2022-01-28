@@ -12,14 +12,13 @@ import MyAccountDataSectionList from "components/molecules/MyAccount/MyAccountDa
 import MyAccountDataSectionListItem from "components/molecules/MyAccount/MyAccountDataSectionListItem";
 import MyAccountDataSectionButton from "components/molecules/MyAccount/MyAccountDataSectionButton";
 import Bar from "components/atoms/Bar/Bar";
-
 import { avatarIcon, envelopeIcon, keyIcon, deleteIcon, pencilIcon } from "assets/icons";
-import EditNameModal from "components/organisms/EditNameModal/EditNameModal";
-import EditEmailModal from "components/organisms/EditEmailModal/EditEmailModal";
-import EditPasswordModal from "components/organisms/EditPasswordModal/EditPasswordModal";
+import EditUserNameModal from "components/organisms/EditUserNameModal/EditUserNameModal";
+import EditUserEmailModal from "components/organisms/EditUserEmailModal/EditUserEmailModal";
+import EditUserPasswordModal from "components/organisms/EditUserPasswordModal/EditUserPasswordModal";
 import Success from 'components/atoms/Success/Success'
 import Button from "components/atoms/Button/Button";
-import DeleteAccountModal from "components/organisms/DeleteAccountModal/DeleteAccountModal";
+import DeleteUserAccountModal from "components/organisms/DeleteUserAccountModal/DeleteUserAccountModal";
 
 export default function MyAccount() {
   const { strings, getLanguage } = useLocalizedStrings();
@@ -79,7 +78,7 @@ export default function MyAccount() {
         </MyAccountDataSectionList>
         <MyAccountDataSectionButton>
           <Button
-            text={strings.myaccount.editBtn}
+            text={strings.form.editBtn}
             type="button"
             onClick={toggleEditNameModal}
             icon={pencilIcon}
@@ -94,7 +93,7 @@ export default function MyAccount() {
         </MyAccountDataSectionList>
         <MyAccountDataSectionButton>
         <Button
-            text={strings.myaccount.editBtn}
+            text={strings.form.editBtn}
             type="button"
             onClick={toggleEditEmailModal}
             icon={pencilIcon}
@@ -109,7 +108,7 @@ export default function MyAccount() {
         </MyAccountDataSectionList>
         <MyAccountDataSectionButton>
         <Button
-            text={strings.myaccount.editBtn}
+            text={strings.form.editBtn}
             type="button"
             onClick={toggleEditPasswordModal}
             icon={pencilIcon}
@@ -133,22 +132,22 @@ export default function MyAccount() {
         </MyAccountDataSectionButton>
       </MyAccountDataSection>
       <Bar />
-      <EditNameModal
+      <EditUserNameModal
         isOpen={isEditNameModalOpen}
         toggleIsOpen={toggleEditNameModal}
         user={myData}
       />
-      <EditEmailModal
+      <EditUserEmailModal
         isOpen={isEditEmailModalOpen}
         toggleIsOpen={toggleEditEmailModal}
         user={myData}
       />
-      <EditPasswordModal
+      <EditUserPasswordModal
         isOpen={isEditPasswordModalOpen}
         toggleIsOpen={toggleEditPasswordModal}
         user={myData}
       />
-      <DeleteAccountModal
+      <DeleteUserAccountModal
         isOpen={isDeleteAccountModalOpen}
         toggleIsOpen={toggleDeleteAccountModal}
         user={myData}

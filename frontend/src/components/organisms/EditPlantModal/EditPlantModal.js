@@ -39,12 +39,12 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
   };
 
   const ERROR_TO_MSG_MAP = {
-    "Max length for name is 50": strings.formatString(strings.inputMaxLengthMsg, strings.plants.updatePlantModal.plantName, 50),
+    "Max length for name is 50": strings.formatString(strings.inputMaxLengthMsg, strings.plant.name, 50),
     "Max length for species is 50": strings.formatString(strings.inputMaxLengthMsg, strings.plant.species, 50),
     "Max length for location is 50": strings.formatString(strings.inputMaxLengthMsg, strings.plant.location, 50),
     "Max length for description is 200": strings.formatString(strings.inputMaxLengthMsg, strings.plant.description, 200),
     "Max length for soilType is 50": strings.formatString(strings.inputMaxLengthMsg, strings.plant.soilType, 50),
-    "The minimum value must be less than the maximum value.": strings.plant.tempValidationMsg
+    "The minimum value must be less than the maximum value.": strings.plant.formMessages.tempValidation
   };
 
   const setManualInputError = (setError, error) => {
@@ -110,7 +110,6 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
       } else {
         e.split(";").forEach(error => {
           if (error) {
-            console.log(error);
             setManualInputError(setError, error);
           }});
       }
@@ -121,7 +120,7 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
     <Modal
       isOpen={isOpen}
       onRequestClose={toggleIsOpen}
-      headerText={strings.plants.updatePlantModal.title}
+      headerText={strings.plant.editPlantDetailsForm.header}
     >
       <Form
         defaultValues={{
@@ -145,9 +144,9 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
           type="text"
           name="updatedPlantName"
           id={nanoid()}
-          label={strings.plants.updatePlantModal.plantName}
+          label={strings.plant.name}
           registerOpt={{
-            required: strings.plants.updatePlantModal.plantNameRequiredMsg,
+            required: strings.plant.formMessages.nameRequired,
           }}
         />
         <Input
@@ -179,6 +178,7 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
           id={nanoid()}
           label={strings.plant.sunlight}
         >
+          <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.sunlightOptions[1]}</option>
           <option value={2}>{strings.plant.sunlightOptions[2]}</option>
           <option value={3}>{strings.plant.sunlightOptions[3]}</option>
@@ -188,6 +188,7 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
           id={nanoid()}
           label={strings.plant.watering}
         >
+          <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.wateringOptions[1]}</option>
           <option value={2}>{strings.plant.wateringOptions[2]}</option>
           <option value={3}>{strings.plant.wateringOptions[3]}</option>
@@ -197,6 +198,7 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
           id={nanoid()}
           label={strings.plant.airHumidity}
         >
+          <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.airHumidityOptions[1]}</option>
           <option value={2}>{strings.plant.airHumidityOptions[2]}</option>
           <option value={3}>{strings.plant.airHumidityOptions[3]}</option>
@@ -206,6 +208,7 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
           id={nanoid()}
           label={strings.plant.fertilizeFreq}
         >
+          <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.fertilizeOptions[1]}</option>
           <option value={2}>{strings.plant.fertilizeOptions[2]}</option>
           <option value={3}>{strings.plant.fertilizeOptions[3]}</option>
@@ -243,7 +246,7 @@ export default function EditPlantModal({ isOpen, toggleIsOpen, plant }) {
         </Select>
         <Button
           type="submit"
-          text={strings.plants.updatePlantModal.submitBtn}
+          text={strings.form.saveBtn}
         />
       </Form>
     </Modal>

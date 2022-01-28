@@ -21,22 +21,22 @@ export default function RegisterForm() {
 
   const SET_ERROR_MAP = {
     "User Already Registered": (setError, error) => {
-      setManualError(setError, "registerEmail", strings.authPage.register.message[error]);
+      setManualError(setError, "registerEmail", strings.user.formMessages.emailInUse);
     },
     "Max length for name is 100": (setError) => {
       setManualError(setError,
         "registerName",
-        strings.formatString(strings.inputMaxLengthMsg, strings.authPage.username.label, 100));
+        strings.formatString(strings.inputMaxLengthMsg, strings.user.name, 100));
     },
     "Max length for email is 100": (setError) => {
       setManualError(setError,
         "registerEmail",
-        strings.formatString(strings.inputMaxLengthMsg, strings.authPage.email.label, 100));
+        strings.formatString(strings.inputMaxLengthMsg, strings.user.email, 100));
     },
     "Max length for password is 100": (setError) => {
       setManualError(setError,
         "registerPassword",
-        strings.formatString(strings.inputMaxLengthMsg, strings.authPage.password.label, 100));
+        strings.formatString(strings.inputMaxLengthMsg, strings.user.password, 100));
     }
   }
 
@@ -70,31 +70,31 @@ export default function RegisterForm() {
   return (
     <Form
       onSubmit={handleRegister}
-      disclaimer={strings.authPage.register.disclaimer}
+      disclaimer={strings.form.requiredFieldsDisclaimer}
     >
       <Input
         name="registerName"
         type="text"
         id={nanoid()}
-        label={strings.authPage.username.label + "*"}
-        placeholder={strings.authPage.username.placeholder}
+        label={strings.user.name + strings.form.requiredFieldMarker}
+        placeholder={strings.user.name}
         icon={avatarIcon}
         registerOpt={{
-          required: strings.authPage.username.message.required,
+          required: strings.user.formMessages.nameRequired,
         }}
       />
       <Input
         name="registerEmail"
         type="text"
         id={nanoid()}
-        label={strings.authPage.email.label + "*"}
-        placeholder={strings.authPage.email.placeholder}
+        label={strings.user.email + strings.form.requiredFieldMarker}
+        placeholder={strings.user.email}
         icon={envelopeIcon}
         registerOpt={{
-          required: strings.authPage.email.message.required,
+          required: strings.user.formMessages.emailRequired,
           pattern: {
             value: emailRegexPattern,
-            message: strings.authPage.email.message.pattern,
+            message: strings.user.formMessages.emailPattern
           },
         }}
       />
@@ -102,14 +102,14 @@ export default function RegisterForm() {
         name="registerPassword"
         type="password"
         id={nanoid()}
-        label={strings.authPage.password.label + "*"}
-        placeholder={strings.authPage.password.placeholder}
+        label={strings.user.password + strings.form.requiredFieldMarker}
+        placeholder={strings.user.password}
         icon={keyIcon}
         registerOpt={{
-          required: strings.authPage.password.message.required,
+          required: strings.user.formMessages.passwordRequired,
         }}
       />
-      <Button text={strings.authPage.register.label} type="submit" filled />
+      <Button text={strings.form.registerBtn} type="submit" filled />
     </Form>
   );
 }

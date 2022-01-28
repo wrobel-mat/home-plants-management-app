@@ -21,14 +21,14 @@ export default function LoginForm() {
         name="loginEmail"
         type="text"
         id={nanoid()}
-        label={strings.authPage.email.label}
-        placeholder={strings.authPage.email.placeholder}
+        label={strings.user.email}
+        placeholder={strings.user.email}
         icon={envelopeIcon}
         registerOpt={{
-          required: strings.authPage.email.message.required,
+          required: strings.user.formMessages.emailRequired,
           pattern: {
             value: emailRegexPattern,
-            message: strings.authPage.email.message.pattern,
+            message: strings.user.formMessages.emailPattern,
           },
         }}
       />
@@ -36,14 +36,14 @@ export default function LoginForm() {
         name="loginPassword"
         type="password"
         id={nanoid()}
-        label={strings.authPage.password.label}
-        placeholder={strings.authPage.password.placeholder}
+        label={strings.user.password}
+        placeholder={strings.user.password}
         icon={keyIcon}
         registerOpt={{
-          required: strings.authPage.password.message.required,
+          required: strings.user.formMessages.passwordRequired,
         }}
       />
-      <Button text={strings.authPage.login.label} type="submit" filled />
+      <Button text={strings.form.loginBtn} type="submit" filled />
     </Form>
   );
 }

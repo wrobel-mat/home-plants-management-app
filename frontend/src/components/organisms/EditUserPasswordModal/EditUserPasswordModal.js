@@ -7,7 +7,7 @@ import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";
 import Button from "components/atoms/Button/Button";
 
-export default function EditPasswordModal({ isOpen, toggleIsOpen, user: { id, email } }) {
+export default function EditUserPasswordModal({ isOpen, toggleIsOpen, user: { id, email } }) {
   const { strings } = useLocalizedStrings();
   const { editUserPassword } = useApi();
   const { reloadUser } = useAuth();
@@ -66,40 +66,40 @@ export default function EditPasswordModal({ isOpen, toggleIsOpen, user: { id, em
     <Modal
       isOpen={isOpen}
       onRequestClose={toggleIsOpen}
-      headerText={strings.myaccount.editPassword.title}
+      headerText={strings.user.editPasswordForm.header}
     >
       <Form onSubmit={submitEditPassword}>
         <Input
           name={FORM_FIELDS.currentPassword}
           type="password"
           id={nanoid()}
-          label={strings.authPage.password.label}
-          placeholder={strings.authPage.password.placeholder}
+          label={strings.user.editPasswordForm.currentPassword}
+          placeholder={strings.user.editPasswordForm.currentPassword}
           registerOpt={{
-            required: strings.authPage.password.message.required,
+            required: strings.user.formMessages.passwordRequired,
           }}
         />
         <Input
           name={FORM_FIELDS.newPassword}
           type="password"
           id={nanoid()}
-          label={strings.myaccount.editPassword.input.newPassword}
-          placeholder={strings.authPage.password.placeholder}
+          label={strings.user.editPasswordForm.newPassword}
+          placeholder={strings.user.editPasswordForm.newPassword}
           registerOpt={{
-            required: strings.authPage.password.message.required,
+            required: strings.user.formMessages.passwordRequired,
           }}
         />
         <Input
           name={FORM_FIELDS.confirmPassword}
           type="password"
           id={nanoid()}
-          label={strings.myaccount.editPassword.input.confirmNewPassword}
-          placeholder={strings.authPage.password.placeholder}
+          label={strings.user.editPasswordForm.confirmNewPassword}
+          placeholder={strings.user.editPasswordForm.confirmNewPassword}
           registerOpt={{
-            required: strings.authPage.password.message.required,
+            required: strings.user.formMessages.passwordRequired,
           }}
         />
-        <Button type="submit" text={strings.myaccount.saveBtn} filled />
+        <Button type="submit" text={strings.form.saveBtn} filled />
       </Form>
     </Modal>
   );

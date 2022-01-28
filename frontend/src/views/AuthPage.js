@@ -24,9 +24,9 @@ export default function AuthPage() {
           clearMessages();
           setLoginSectionIsOpened(!loginSectionIsOpened);
         }}
-        ariaLabel={strings.authPage.login.label}
-        headerText={strings.authPage.login.header}
-        toggleBtnText={strings.authPage.login.label}
+        ariaLabel={strings.form.loginBtn}
+        headerText={strings.user.loginForm.header}
+        toggleBtnText={strings.form.loginBtn}
       >
         <LoginForm />
       </AuthSection>
@@ -37,9 +37,9 @@ export default function AuthPage() {
           clearMessages();
           setLoginSectionIsOpened(!loginSectionIsOpened);
         }}
-        ariaLabel={strings.authPage.register.label}
-        headerText={strings.authPage.register.header}
-        toggleBtnText={strings.authPage.register.label}
+        ariaLabel={strings.form.registerBtn}
+        headerText={strings.user.registerForm.header}
+        toggleBtnText={strings.form.registerBtn}
       >
         <RegisterForm />
       </AuthSection>

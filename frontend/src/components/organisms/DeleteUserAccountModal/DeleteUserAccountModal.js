@@ -7,7 +7,7 @@ import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";
 import Button from "components/atoms/Button/Button";
 
-export default function DeleteAccountModal({ isOpen, toggleIsOpen, user: { email } }) {
+export default function DeleteUserAccountModal({ isOpen, toggleIsOpen, user: { email } }) {
   const { strings } = useLocalizedStrings();
   const { deleteUserAccount } = useApi();
   const { logout } = useAuth();
@@ -35,31 +35,31 @@ export default function DeleteAccountModal({ isOpen, toggleIsOpen, user: { email
     <Modal
       isOpen={isOpen}
       onRequestClose={toggleIsOpen}
-      headerText={strings.myaccount.deleteAccount.title}
+      headerText={strings.user.deleteAccountForm.header}
     >
       <div className="modal-message">
-        {strings.myaccount.deleteAccount.message}
+        {strings.user.deleteAccountForm.message}
       </div>
-      <Form onSubmit={submitDeleteAccount} disclaimer={strings.myaccount.deleteAccount.disclaimer}>
+      <Form onSubmit={submitDeleteAccount} disclaimer={strings.form.requiredFieldsDisclaimer}>
         <Input
             name="deleteAccountPassword"
             type="password"
             id={nanoid()}
-            label={strings.myaccount.deleteAccount.passwordInput.label}
-            placeholder={strings.myaccount.deleteAccount.passwordInput.label}
+            label={strings.user.password + strings.form.requiredFieldMarker}
+            placeholder={strings.user.password}
             registerOpt={{
-                required: strings.myaccount.deleteAccount.passwordInput.requiredMessage,
+                required: strings.user.formMessages.passwordRequired,
             }}
         />
         <Button
             type="submit"
-            text={strings.myaccount.deleteAccount.deleteBtn}
+            text={strings.form.deleteBtn}
             danger
         />
         <div style={{"height": "var(--spacing-s)"}}/>
         <Button
             type="button"
-            text={strings.myaccount.deleteAccount.cancelBtn}
+            text={strings.form.cancelBtn}
             onClick={toggleIsOpen}
         />
       </Form>
