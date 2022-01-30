@@ -1,0 +1,38 @@
+.plant-tabs-container {
+    flex-basis: 50%;
+    padding-top: 12px;
+}
+
+.plant-tabs-nav {
+    border-bottom: solid 1px var(--color-bar);
+    display: flex;
+    width: 100%;
+}
+
+.plant-tabs-nav-item {
+    align-items: center;
+    border-bottom: solid 1px transparent;
+    color: var(--color-bar);
+    cursor: pointer;
+    display: flex;
+    font-size: var(--font-size-normal);
+    font-weight: 500;
+    justify-content: center;
+    line-height: var(--line-height-normal);
+    margin-bottom: -1px;
+    padding-bottom: 8px;
+    transition: all 0.15s ease;
+}
+
+.plant-tabs-nav-item:not(:last-child) {
+    margin-right: 24px;
+}
+
+.plant-tabs-nav-item.active {
+    border-color: var(--color-anthracite);
+    color: var(--color-anthracite);
+}
+
+.plant-tab-content {
+    margin-top: 12px;
+}

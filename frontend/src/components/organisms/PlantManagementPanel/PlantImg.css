@@ -1,0 +1,56 @@
+.plant-img-container {
+    flex-basis: 50%;
+    padding: 12px 12px 0 0;
+    position: relative;
+}
+
+.plant-img {
+    aspect-ratio: 1 / 1;
+    background-color: var(--color-plant-img-bg);
+    height: auto;
+    object-fit: contain;
+    width: 100%;
+}
+
+.plant-img-edit-btn {
+    align-items: center;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+    color: var(--color-anthracite);
+    display: flex;
+    font-size: var(--font-size-l);
+    justify-content: center;
+    line-height: var(--line-height-l);
+    padding: 4px;
+    position: absolute;
+    opacity: 0;
+    top: 24px;
+    transition: opacity 0.15s ease;
+    right: 24px;
+}
+
+.plant-img-edit-btn-tooltip {
+    bottom: 110%;
+    color: white;
+    background-color: var(--color-grey);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-xs);
+    padding: 8px 12px;
+    pointer-events: none;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    width: 110px;
+    z-index: 101;
+}
+
+.plant-img-container:hover .plant-img-edit-btn {
+    opacity: 1;
+}
+
+.plant-img-edit-btn:hover .plant-img-edit-btn-tooltip {
+    opacity: 1;
+}

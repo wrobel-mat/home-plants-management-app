@@ -1,3 +1,5 @@
+import "./PlantInfoSection.css"
+
 export default function PlantInfoSection({ title, children }) {
   return (
     <>

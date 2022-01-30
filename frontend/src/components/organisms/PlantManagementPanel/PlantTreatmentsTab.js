@@ -15,52 +15,37 @@ export default function PlantTreatmentsTab({ plant : { id, lastWatering, lastRep
   const [replantPlant] = useReplantPlantMutation();
   const [fertilizePlant] = useFertilizePlantMutation();
 
-  const submitWaterPlant = async (setMessage) => {
+  const submitWaterPlant = async () => {
     try {
       await waterPlant(id).unwrap();
-      setMessage(strings.plant.wateringSuccess);
     } catch (e) {
       if (e === "Access JWT Invalid") {
         authFallback({
-          callbackFn: (args) => {
-            waterPlant(args);
-            setMessage(strings.plant.wateringSuccess);
-            },
-          args: id,
+          callbackFn: (args) => waterPlant(args)
         });
       }
     }
   };
 
-  const submitReplantPlant = async (setMessage) => {
+  const submitReplantPlant = async () => {
     try {
       await replantPlant(id).unwrap();
-      setMessage(strings.plant.replantSuccess);
     } catch (e) {
       if (e === "Access JWT Invalid") {
         authFallback({
-          callbackFn: (args) => {
-            replantPlant(args);
-            setMessage(strings.plant.replantSuccess);
-            },
-          args: id,
+          callbackFn: () => replantPlant(id)
         });
       }
     }
   };
 
-  const submitFertilizePlant = async (setMessage) => {
+  const submitFertilizePlant = async () => {
     try {
       await fertilizePlant(id).unwrap();
-      setMessage(strings.plant.fertilizeSuccess);
     } catch (e) {
       if (e === "Access JWT Invalid") {
         authFallback({
-          callbackFn: (args) => {
-            fertilizePlant(args);
-            setMessage(strings.plant.fertilizeSuccess);
-            },
-          args: id,
+          callbackFn: () => fertilizePlant(id)
         });
       }
     }
@@ -70,26 +55,26 @@ export default function PlantTreatmentsTab({ plant : { id, lastWatering, lastRep
     <>
       <PlantTreatmentItem
         name={strings.plant.events.watering}
-        lastEvent={lastWatering}
+        lastTreatment={lastWatering}
         icon={waterCanIcon}
-        eventText={strings.plant.events.lastWatering}
-        noEventText={strings.plant.events.noWatering}
+        treatmentSubmittedMessage={strings.plant.events.lastWatering}
+        treatmentNotSubmittedMessage={strings.plant.events.noWatering}
         submitTreatment={submitWaterPlant}
       />
       <PlantTreatmentItem
         name={strings.plant.events.fertilization}
-        lastEvent={lastFertilization}
+        lastTreatment={lastFertilization}
         icon={fertilizeIcon}
-        eventText={strings.plant.events.lastFertilization}
-        noEventText={strings.plant.events.noFertilization}
+        treatmentSubmittedMessage={strings.plant.events.lastFertilization}
+        treatmentNotSubmittedMessage={strings.plant.events.noFertilization}
         submitTreatment={submitFertilizePlant}
       />
       <PlantTreatmentItem
         name={strings.plant.events.replant}
-        lastEvent={lastReplant}
+        lastTreatment={lastReplant}
         icon={replantIcon}
-        eventText={strings.plant.events.lastReplanting}
-        noEventText={strings.plant.events.noReplanting}
+        treatmentSubmittedMessage={strings.plant.events.lastReplanting}
+        treatmentNotSubmittedMessage={strings.plant.events.noReplanting}
         submitTreatment={submitReplantPlant}
       />
     </>

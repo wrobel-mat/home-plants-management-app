@@ -1,0 +1,70 @@
+.plant-treatment-item {
+    display: flex;
+    margin-bottom: 4px;
+    position: relative;
+}
+
+.plant-treatment-item-icon {
+    align-items: center;
+    color: var(--color-anthracite);
+    display: flex;
+    font-size: var(--font-size-l);
+    justify-content: center;
+    line-height: var(--line-height-l);
+    padding: 4px;
+}
+
+.plant-treatment-item-info {
+    margin-left: 8px;
+}
+
+.plant-treatment-item-name {
+    color: var(--color-anthracite);
+    font-size: var(--font-size-normal);
+    font-weight: 500;
+    line-height: var(--line-height-normal);
+    padding: 4px;
+}
+
+.plant-treatment-item-value {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-xs);
+    padding: 4px;
+}
+
+.plant-treatment-item-btns-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.plant-treatment-item-btn {
+    align-items: center;
+    background: transparent;
+    border: solid 1px var(--color-anthracite);
+    color: var(--color-anthracite);
+    cursor: pointer;
+    display: flex;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-light);
+    justify-content: center;
+    padding: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.plant-treatment-item-btn:hover {
+    background-color: var(--color-grey);
+    border-color: var(--color-grey);
+    color: white;
+}
+
+.plant-treatment-item-btn:disabled {
+    color: var(--color-bar);
+    cursor: none;
+    border-color: var(--color-bar);
+    pointer-events: none;
+}

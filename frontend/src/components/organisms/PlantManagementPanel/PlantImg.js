@@ -1,5 +1,6 @@
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import { editIcon } from "assets/icons";
+import "./PlantImg.css"
 
 export default function PlantImg({ imgFilePath, toggleEditPlantImgModal }) {
   const { strings } = useLocalizedStrings();
@@ -8,7 +9,7 @@ export default function PlantImg({ imgFilePath, toggleEditPlantImgModal }) {
       <img className="plant-img" alt="plant-img" src={imgFilePath} />
       <button className="plant-img-edit-btn" onClick={toggleEditPlantImgModal}>
         {editIcon}
-        <div className="plant-panel-btn-tooltip plant-img-edit-btn-tooltip">
+        <div className="plant-img-edit-btn-tooltip">
           {strings.plant.editImgBtnTooltip}
         </div>
       </button>

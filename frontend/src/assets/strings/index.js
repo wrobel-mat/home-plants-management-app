@@ -173,7 +173,8 @@ const strings = new LocalizedStrings({
         wateringBtnTooltip: "Water",
         replantBtnTooltip: "Replant",
         fertilizeBtnTooltip: "Fertilize",
-        submitTreatmentBtn: "Submit"
+        submitTreatmentBtn: "Submit",
+        submitTreatmentBtnDone: "Submitted"
       },
       addPlantForm: {
         header: "Add new plant",
@@ -422,7 +423,8 @@ const strings = new LocalizedStrings({
         wateringBtnTooltip: "Podlej",
         replantBtnTooltip: "Przesadź",
         fertilizeBtnTooltip: "Nawieź",
-        submitTreatmentBtn: "Wykonaj"
+        submitTreatmentBtn: "Wykonaj",
+        submitTreatmentBtnDone: "Wykonane"
       },
       addPlantForm: {
         header: "Dodaj nową roślinę",

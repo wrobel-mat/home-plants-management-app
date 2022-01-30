@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import PlantInfoTab from "./PlantInfoTab";
 import PlantTreatmentsTab from "./PlantTreatmentsTab";
+import "./PlantTabs.css"
 
 export default function PlantTabs({ plant }) {
   const tabList = {
@@ -13,10 +14,10 @@ export default function PlantTabs({ plant }) {
 
   return (
     <div className="plant-tabs-container">
-      <div className="plant-tablist">
+      <div className="plant-tabs-nav">
         <div
           className={
-            activeTab === "info" ? "plant-nav-tab active" : "plant-nav-tab"
+            activeTab === "info" ? "plant-tabs-nav-item active" : "plant-tabs-nav-item"
           }
           onClick={() => {
             setActiveTab("info");
@@ -27,8 +28,8 @@ export default function PlantTabs({ plant }) {
         <div
           className={
             activeTab === "treatments"
-              ? "plant-nav-tab active"
-              : "plant-nav-tab"
+              ? "plant-tabs-nav-item active"
+              : "plant-tabs-nav-item"
           }
           onClick={() => {
             setActiveTab("treatments");

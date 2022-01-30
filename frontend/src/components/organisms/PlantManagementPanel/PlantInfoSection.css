@@ -1,0 +1,13 @@
+.plant-info-details-header {
+    border-bottom: solid 1px var(--color-bar);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: var(--line-height-sm);
+    padding-bottom: 6px;
+}
+
+.plant-info-details-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6px 0;
+}

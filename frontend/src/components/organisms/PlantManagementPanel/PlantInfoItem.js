@@ -1,3 +1,5 @@
+import "./PlantInfoItem.css"
+
 export default function PlantInfoItem({ name, value }) {
   return (
     <div className="plant-info-item">

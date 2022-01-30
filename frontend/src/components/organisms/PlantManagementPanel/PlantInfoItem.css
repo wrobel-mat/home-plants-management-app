@@ -1,0 +1,19 @@
+.plant-info-item {
+    flex-basis: 50%;
+    margin-bottom: 6px;
+    padding: 4px;
+}
+
+.plant-info-item-name {
+    color: var(--color-anthracite);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: var(--line-height-sm);
+}
+
+.plant-info-item-value {
+    color: var(--color-anthracite);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-xs);
+}
