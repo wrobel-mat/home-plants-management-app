@@ -7,6 +7,7 @@ export default function Select({
   id,
   label,
   children,
+  icon
 }) {
   const attributes = register(name, registerOpt);
 
@@ -33,6 +34,7 @@ export default function Select({
         {label}
       </label>
       <div className="input-box">
+        {icon && <div className="input-icon input-icon--before">{icon}</div>}
         <select
           {...attributes}
           id={id}

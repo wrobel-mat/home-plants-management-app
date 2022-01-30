@@ -144,7 +144,7 @@ const strings = new LocalizedStrings({
       },
       fertilizeFreq: "Fertilizing",
       fertilizeOptions: {
-        1: "Not to fertilize",
+        1: "Do not fertilize",
         2: "Less frequently than once a month",
         3: "1 - 2 times a month",
         4: "3 - 4 times a month",

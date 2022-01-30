@@ -7,7 +7,19 @@ import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";
 import Select from "components/molecules/Form/Select";
 import Button from "components/atoms/Button/Button";
-import { plantIcon } from "assets/icons";
+import { plantIcon, 
+  descriptionIcon,
+  locationIcon, 
+  soilTypeIcon, 
+  sunlightIcon,
+  wateringIcon, 
+  fertilizingIcon, 
+  humidityIcon, 
+  temperatureIcon, 
+  airPurificationIcon, 
+  petToxicityIcon,
+  plantNameIcon,
+  speciesIcon } from "assets/icons";
 
 const imgIsValid = (img) => {
   return !(img && img.size > 1048576);
@@ -157,6 +169,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           registerOpt={{
             required: strings.plant.formMessages.nameRequired,
           }}
+          icon={plantNameIcon}
         />
         <Input
           type="text"
@@ -164,6 +177,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           label={strings.plant.species}
           name={FORM_FIELDS.species}
           placeholder={strings.plant.species}
+          icon={speciesIcon}
         />
         <Input
           type="text"
@@ -171,6 +185,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           id={nanoid()}
           label={strings.plant.location}
           placeholder={strings.plant.location}
+          icon={locationIcon}
         />
         <Input
           type="text"
@@ -178,6 +193,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           id={nanoid()}
           label={strings.plant.description}
           placeholder={strings.plant.description}
+          icon={descriptionIcon}
         />
         <Input
           type="text"
@@ -185,11 +201,13 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           id={nanoid()}
           label={strings.plant.soilType}
           placeholder={strings.plant.soilType}
+          icon={soilTypeIcon}
         />
         <Select
           name={FORM_FIELDS.sunlight}
           id={nanoid()}
           label={strings.plant.sunlight}
+          icon={sunlightIcon}
         >
           <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.sunlightOptions[1]}</option>
@@ -200,6 +218,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           name={FORM_FIELDS.watering}
           id={nanoid()}
           label={strings.plant.watering}
+          icon={wateringIcon}
         >
           <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.wateringOptions[1]}</option>
@@ -210,6 +229,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           name={FORM_FIELDS.airHumidity}
           id={nanoid()}
           label={strings.plant.airHumidity}
+          icon={humidityIcon}
         >
           <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.airHumidityOptions[1]}</option>
@@ -220,6 +240,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           name={FORM_FIELDS.fertilizeFreq}
           id={nanoid()}
           label={strings.plant.fertilizeFreq}
+          icon={fertilizingIcon}
         >
           <option value={0}>{strings.plant.noInformation}</option>
           <option value={1}>{strings.plant.fertilizeOptions[1]}</option>
@@ -232,17 +253,20 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           name={FORM_FIELDS.minTemp}
           id={nanoid()}
           label={strings.plant.minTemp}
+          icon={temperatureIcon}
         />
         <Input
           type="number"
           name={FORM_FIELDS.maxTemp}
           id={nanoid()}
           label={strings.plant.maxTemp}
+          icon={temperatureIcon}
         />
         <Select
           name={FORM_FIELDS.airPurification}
           id={nanoid()}
           label={strings.plant.airPurification}
+          icon={airPurificationIcon}
         >
           <option value={0}>
             {strings.plant.airPurificationOptions.false}
@@ -253,6 +277,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
           name={FORM_FIELDS.toxicity}
           id={nanoid()}
           label={strings.plant.toxicity}
+          icon={petToxicityIcon}
         >
           <option value={0}>{strings.plant.toxicityOptions.false}</option>
           <option value={1}>{strings.plant.toxicityOptions.true}</option>

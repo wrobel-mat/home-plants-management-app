@@ -10,6 +10,18 @@ import { ReactComponent as WaterCan } from "assets/icons/water-can.svg";
 import { ReactComponent as RightArrow } from "assets/icons/right-arrow.svg";
 import { ReactComponent as Fertilize } from "assets/icons/plant-bag.svg";
 import { ReactComponent as SiteUnderConstruction } from "assets/icons/siteUnderConstruction.svg";
+import { ReactComponent as Description } from "assets/icons/description.svg";
+import { ReactComponent as Location } from "assets/icons/location.svg";
+import { ReactComponent as SoilType } from "assets/icons/soil-type.svg";
+import { ReactComponent as Sunlight } from "assets/icons/sunlight.svg";
+import { ReactComponent as Watering } from "assets/icons/watering.svg";
+import { ReactComponent as Humidity } from "assets/icons/humidity.svg";
+import { ReactComponent as Fertilizing } from "assets/icons/fertilizing.svg";
+import { ReactComponent as Temp } from "assets/icons/temperature.svg";
+import { ReactComponent as AirPurification } from "assets/icons/air.svg";
+import { ReactComponent as PetToxicity } from "assets/icons/pets.svg";
+import { ReactComponent as PlantName } from "assets/icons/id-card.svg";
+import { ReactComponent as Sepecies } from "assets/icons/species.svg";
 import "./index.css";
 
 export const envelopeIcon = (
@@ -125,4 +137,16 @@ export const replantIcon = <Replant className="svg" />;
 export const waterCanIcon = <WaterCan className="svg" />;
 export const rightArrowIcon = <RightArrow className="svg" />;
 export const fertilizeIcon = <Fertilize className="svg" />;
-export const siteUnderConstructionIcon = <SiteUnderConstruction className="svg" />
+export const siteUnderConstructionIcon = <SiteUnderConstruction className="svg" />;
+export const descriptionIcon = <Description className="svg" />;
+export const locationIcon = <Location className="svg" />;
+export const soilTypeIcon = <SoilType className="svg" />;
+export const sunlightIcon = <Sunlight className="svg" />;
+export const wateringIcon = <Watering className="svg" />;
+export const humidityIcon = <Humidity className="svg" />;
+export const fertilizingIcon = <Fertilizing className="svg" />;
+export const temperatureIcon = <Temp className="svg" />;
+export const airPurificationIcon = <AirPurification className="svg" />;
+export const petToxicityIcon = <PetToxicity className="svg" />;
+export const plantNameIcon = <PlantName className="svg" />;
+export const speciesIcon = <Sepecies className="svg" />;

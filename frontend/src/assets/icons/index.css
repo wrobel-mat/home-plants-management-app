@@ -1,10 +1,14 @@
 .svg {
-    fill: currentColor;
+    fill: currentColor !important;
     height: 1em;
     width: 1em;
     transform: scale(1);
     flex-shrink: 0;
     overflow: hidden;
+}
+
+.svg svg path {
+    fill: currentColor !important;
 }
 
 .svg-header-logo {
