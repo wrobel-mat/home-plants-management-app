@@ -93,7 +93,7 @@
 .navbar-nav-item-dropdown {
     background-color: white;
     border: var(--border-width-sm) solid var(--color-anthracite);
-    border-top-width: 4px;
+    border-top-width: 3px;
     box-sizing: border-box;
     cursor: default;
     display: none;

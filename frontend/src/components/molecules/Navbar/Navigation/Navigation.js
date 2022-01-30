@@ -18,10 +18,6 @@ export default function Navigation() {
               text={strings.navigation.myaccount}
             />
             <DropdownListItem path="/plants" text={strings.navigation.plants} />
-            <DropdownListItem
-              path="/timeline"
-              text={strings.navigation.timeline}
-            />
           </DropdownList>
           <DropdownLogoutLink />
         </Dropdown>
