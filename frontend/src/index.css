@@ -31,7 +31,7 @@ code {
 :root {
     /* colors */
     --color-anthracite: rgba(34, 34, 34, 0.99);
-    --color-anthracite-light: rgba(34, 34, 34, 0.8);
+    --color-anthracite-light: rgb(94, 94, 94);
     --color-anthracite-lighter: rgba(34, 34, 34, 0.6);
     --color-bar: #d0d1d3;
     --color-error: rgb(205, 32, 43);

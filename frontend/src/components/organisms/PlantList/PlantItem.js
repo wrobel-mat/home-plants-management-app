@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toDate, formatDistanceToNow } from "date-fns";
+import { toDate, formatDistanceToNow, isToday } from "date-fns";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import { useAuth } from "providers/AuthProvider";
 import {
@@ -21,19 +21,25 @@ export default function PlantItem({ plant: { id, name, mainImgUri, lastWatering,
     ? mainImgUri
     : "default-plant-img.svg";
 
-  const wateringMsg = lastWatering
+  const lastWateringDate = lastWatering ? toDate(lastWatering.eventDate) : undefined;
+  const hasBeenWateredToday = lastWateringDate && isToday(lastWateringDate);
+
+  const lastFertilizationDate = lastFertilization ? toDate(lastFertilization.eventDate) : undefined;
+  const hasBeenFertilizedToday = lastFertilizationDate && isToday(lastFertilizationDate);
+
+  const wateringMsg = lastWateringDate
     ? strings.plant.events.lastWatering  +
     " " +
-    formatDistanceToNow(toDate(lastWatering.eventDate), {
+    formatDistanceToNow(lastWateringDate, {
       addSuffix: true,
       locale: localeMap[getLanguage()],
     })
     : strings.plant.events.noWatering;
 
-  const fertilizationMsg = lastFertilization
+  const fertilizationMsg = lastFertilizationDate
     ? strings.plant.events.lastFertilization +
     " " +
-    formatDistanceToNow(toDate(lastFertilization.eventDate), {
+    formatDistanceToNow(lastFertilizationDate, {
       addSuffix: true,
       locale: localeMap[getLanguage()],
     })
@@ -111,8 +117,9 @@ export default function PlantItem({ plant: { id, name, mainImgUri, lastWatering,
                     <button
                       className="plant-item-button"
                       onClick={submitWaterPlant}
+                      disabled={hasBeenWateredToday}
                     >
-                      {strings.plant.waterBtn}
+                      {hasBeenWateredToday ? strings.plant.waterBtnSubmitted : strings.plant.waterBtn}
                       <div className="plant-item-button-tooltip left">
                         {wateringMsg}
                       </div>
@@ -132,8 +139,9 @@ export default function PlantItem({ plant: { id, name, mainImgUri, lastWatering,
                     <button
                       className="plant-item-button"
                       onClick={submitFertilizePlant}
+                      disabled={hasBeenFertilizedToday}
                     >
-                      {strings.plant.fertilizeBtn}
+                      {hasBeenFertilizedToday ? strings.plant.fertilizeBtnSubmitted : strings.plant.fertilizeBtn}
                       <div className="plant-item-button-tooltip right">
                         {fertilizationMsg}
                       </div>

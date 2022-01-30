@@ -39,7 +39,7 @@
     display: flex;
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-heavy);
-    height: 65%;
+    height: 69%;
     justify-content: center;
     line-height: var(--line-height-normal);
     width: 98%;
@@ -63,6 +63,14 @@
     height: auto;
     position: relative;
     object-fit: contain;
+    width: 100%;
+}
+
+.plant-item-img-default {
+    aspect-ratio: 1 / 1;
+    background-color: var(--color-plant-img-bg);
+    height: auto;
+    position: relative;
     width: 100%;
 }
 
@@ -125,7 +133,7 @@
 
 .plant-item-button {
     align-items: center;
-    background-color: transparent;
+    background-color: rgb(245, 245, 245);
     border: none;
     color: var(--color-anthracite);
     cursor: pointer;
@@ -136,20 +144,30 @@
     line-height: var(--line-height-xs);
     margin: 0;
     overflow: visible;
-    padding: 8px 12px;
+    padding: 8px 0;
     position: relative;
-    transition: background-color 0.3s ease;
+    transition: all 0.2s ease;
     width: 100%;
 }
 
 .plant-item-button:hover {
+    background-color: var(--color-anthracite-light);
+    color: white;
+}
+
+.plant-item-button:disabled {
+    cursor: default;
+}
+
+.plant-item-button:disabled:hover {
     background-color: rgb(245, 245, 245);
+    color: var(--color-anthracite);
 }
 
 .plant-item-button-tooltip {
     align-items: center;
-    color: var(--color-anthracite);
-    background-color: white;
+    color: white;
+    background-color: var(--color-anthracite-light);
     bottom: 124%;
     display: flex;
     font-size: var(--font-size-xs);
@@ -158,10 +176,10 @@
     line-height: var(--line-height-xs);
     padding: 10px 12px;
     position: absolute;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
     opacity: 0;
     visibility: hidden;
-    width: 314%;
+    width: 312%;
 }
 
 .plant-item-button-tooltip.left {
