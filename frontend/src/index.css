@@ -30,18 +30,18 @@ code {
 
 :root {
     /* colors */
-    --color-anthracite: rgba(34, 34, 34, 0.99);
-    --color-anthracite-light: rgb(94, 94, 94);
-    --color-anthracite-lighter: rgba(34, 34, 34, 0.6);
+    --color-anthracite: #222222fc;
+    --color-anthracite-light: #5e5e5e;
+    --color-anthracite-lighter: #dfdfdf;
     --color-bar: #d0d1d3;
-    --color-error: rgb(205, 32, 43);
-    --color-error-bg: rgb(255, 222, 224);
-    --color-grey: rgba(60, 60, 60, 0.99);
-    --color-success: rgb(70, 98, 78);
-    --color-success-bg: rgb(217, 246, 222);
-    --color-plant-img-bg: rgba(34, 34, 34, 0.05);
-    --color-danger: rgb(205, 32, 43);
-    --color-danger-2: rgb(150, 0, 10);
+    --color-error: #cd202b;
+    --color-error-bg: #ffdee0;
+    --color-grey: #3c3c3cfc;
+    --color-success: #46624e;
+    --color-success-bg: #d9f6de;
+    --color-plant-img-bg: #2222220d;
+    --color-danger: #cd202b;
+    --color-danger-2: #96000a;
 
     /* font sizes */
     --font-size-xs: 0.75rem;

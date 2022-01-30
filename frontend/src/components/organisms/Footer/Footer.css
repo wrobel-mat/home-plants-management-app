@@ -1,62 +1,63 @@
 .footer {
-  padding: var(--spacing-m);
+    background-color: var(--color-anthracite-lighter);
+    padding: var(--spacing-m);
 }
 
 .footer-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  list-style: none;
-  margin: 16px 0;
-  padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
 }
 
 .footer-list-item {
-  padding: 16px;
+    padding: 16px;
 }
 
 .footer-link {
-  border-bottom-color: transparent;
-  border-bottom-style: solid;
-  border-bottom-width: var(--border-width-sm);
-  color: var(--color-anthracite);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-sm);
-  padding-bottom: 2px;
-  text-decoration: none;
-  transition: border-bottom-color 0.15s ease;
+    border-bottom-color: transparent;
+    border-bottom-style: solid;
+    border-bottom-width: var(--border-width-sm);
+    color: var(--color-anthracite);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-sm);
+    padding-bottom: 2px;
+    text-decoration: none;
+    transition: border-bottom-color 0.15s ease;
 }
 
 .footer-link:hover {
-  border-bottom-color: var(--color-anthracite);
+    border-bottom-color: var(--color-anthracite);
 }
 
 .footer-logo {
-  color: var(--color-anthracite);
-  padding: 16px 0;
-  text-align: center;
+    color: var(--color-anthracite);
+    padding: 16px 0;
+    text-align: center;
 }
 
 .footer-lang-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--color-anthracite);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-sm);
-  margin: 0;
-  padding: 0 4px;
-  text-decoration: none;
-  transition: font-weight 0.15s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-anthracite);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-sm);
+    margin: 0;
+    padding: 0 4px 2px;
+    text-decoration: none;
+    transition: all 0.15s ease;
 }
 
 .footer-lang-btn:hover {
-  font-weight: 500;
+    font-weight: 600;
 }
 
 .footer-lang-btn.active {
-  font-weight: 500;
+    font-weight: 600;
 }

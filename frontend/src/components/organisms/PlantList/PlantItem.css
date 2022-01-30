@@ -133,7 +133,7 @@
 
 .plant-item-button {
     align-items: center;
-    background-color: rgb(245, 245, 245);
+    background-color: #f5f5f5;
     border: none;
     color: var(--color-anthracite);
     cursor: pointer;
@@ -160,7 +160,7 @@
 }
 
 .plant-item-button:disabled:hover {
-    background-color: rgb(245, 245, 245);
+    background-color: #f5f5f5;
     color: var(--color-anthracite);
 }
 
