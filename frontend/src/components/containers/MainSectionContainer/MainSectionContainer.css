@@ -1,5 +1,5 @@
 .main-section-container {
-  max-width: 70vw;
-  margin: 0 auto;
-  padding: var(--spacing-l) 4px;
+    margin: 0 auto;
+    padding: var(--spacing-l) 4px;
+    width: 70vw;
 }

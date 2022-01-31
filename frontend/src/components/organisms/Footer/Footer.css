@@ -1,5 +1,6 @@
 .footer {
     background-color: var(--color-anthracite-lighter);
+    margin-top: auto;
     padding: var(--spacing-m);
 }
 

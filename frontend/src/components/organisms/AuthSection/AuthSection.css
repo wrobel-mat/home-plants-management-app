@@ -1,14 +1,68 @@
 .auth-section-container {
-  flex-basis: 35vw;
-  max-width: 35vw;
-  margin: 0 auto;
-  padding: var(--spacing-m) var(--spacing-m) var(--spacing-l);
+    margin: 0 auto;
+    padding: var(--spacing-m) var(--spacing-m) var(--spacing-l);
+    width: 33vw;
 }
 
 .auth-section-header {
-  color: var(--color-anthracite);
-  font-size: var(--font-size-l);
-  font-weight: 600;
-  margin: 0;
-  line-height: var(--line-height-l);
+    color: var(--color-anthracite);
+    font-size: var(--font-size-l);
+    font-weight: 600;
+    margin: 0;
+    line-height: var(--line-height-l);
+}
+
+@media screen and (max-width: 1112px) {
+    .auth-section-container {
+        width: 42vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .auth-section-container {
+        padding: var(--spacing-s) var(--spacing-s) var(--spacing-m);
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .auth-section-container {
+        padding: var(--spacing-s) var(--spacing-s) var(--spacing-m);
+        width: 66vw;
+    }
+
+    .auth-section-header {
+        font-size: var(--font-size-m);
+        font-weight: 600;
+        margin: 0;
+        line-height: var(--line-height-m);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .auth-section-container {
+        padding: var(--spacing-s) var(--spacing-s) var(--spacing-m);
+        width: 80vw;
+    }
+
+    .auth-section-header {
+        font-size: var(--font-size-mm);
+        font-weight: 600;
+        margin: 0;
+        line-height: var(--line-height-m);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .auth-section-container {
+        padding: var(--spacing-s) var(--spacing-s) var(--spacing-m);
+        width: 100vw;
+    }
+
+    .auth-section-header {
+        font-size: var(--font-size-mm);
+        font-weight: 600;
+        margin: 0;
+        line-height: var(--line-height-m);
+    }
 }
