@@ -15,7 +15,7 @@ export default function DropdownLogoutLink() {
         onClick={() => {
           logout();
           dispatch(resetApiState());
-          navigate("/");
+          navigate("/auth");
         }}
         className="navbar-nav-item-dropdown-logout-btn"
       >

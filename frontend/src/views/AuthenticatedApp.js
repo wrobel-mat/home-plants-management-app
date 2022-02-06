@@ -14,6 +14,7 @@ export default function AuthenticatedApp() {
     <MainTemplate>
       <Routes>
         <Route exact path="/" element={<Navigate to="/plants" />} />
+        <Route exact path="/auth" element={<Navigate to="/plants" />} />
         <Route exact path="/timeline" element={<Timeline />} />
         <Route exact path="/plants" element={<Plants />} />
         <Route exact path="/plants/:id" element={<Plant />} />

@@ -204,6 +204,14 @@ const strings = new LocalizedStrings({
         goHome: "Go to home page",
       },
     },
+    welcomePage: {
+      title: "Welcome to Home Jungle!",
+      firstParagraph: "This website was created out of love for green beds, spring buds and young shoots, roots, leaves and chlorophyll.",
+      secondParagraph: "If, like me, you love the company of your plant companions and are looking for ways to facilitate their effective care, this is definitely the place for you.",
+      thirdParagraph: "The website allows you to monitor the growth and management of your plants. Here you will find several useful tools to facilitate systematic maintenance, taking into account the individual preferences of the species, such as the preferred position, soil pH or frequency of irrigation. I hope they will help you improve your gardening skills and make your plants lush and healthy.",
+      fourthParagraph: "Find your Home Jungle way.",
+      authBtn: "Login / Register"
+    },
     notFoundPage: {
       title: "404",
       content: "It looks like you've lost your way.",
@@ -453,6 +461,14 @@ const strings = new LocalizedStrings({
         resend: "Wyślij ponownie",
         goHome: "Powrót do strony głównej",
       },
+    },
+    welcomePage: {
+      title: "Witaj na Home Jungle!",
+      firstParagraph: "Ta strona powstała z miłości do zielonych grządek, wiosennych pąków i młodych pędów, korzeni, liści i chlorofilu.",
+      secondParagraph: "Jeśli tak jak ja przepadasz za towarzystwem swoich roślinnych towarzyszy i poszukujesz sposobów by ułatwić sobie ich skuteczną pielęgnację, to zdecydowanie miejsce dla Ciebie.",
+      thirdParagraph: "Strona pozwoli Ci monitorować wzrost i prowadzenie Twoich roślin. Znajdziesz tu kilka przydatnych narzędzi ułatwiających systematyczną pielęgnację, z uwzględnieniem indywidualnych preferencji gatunku jak np. preferowane stanowisko, odczyn gleby czy częstotliwość nawadniania. Mam nadzieję, że dzięki nim doszlifujesz swoje ogrodnicze skille, a Twoje rośliny będą bujne i zdrowe.",
+      fourthParagraph: "Znajdź swój przepis na domową dżunglę.",
+      authBtn: "Zaloguj / Zarejestruj się"
     },
     notFoundPage: {
       title: "404",

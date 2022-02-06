@@ -1,0 +1,12 @@
+.welcome-page-content-container {
+    padding: 24px 0 12px;
+}
+
+.welcome-page-content-container > p {
+    font-size: var(--font-size-mm);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-m);
+    text-align: justify;
+    text-align-last: center;
+    width: 100%;
+}

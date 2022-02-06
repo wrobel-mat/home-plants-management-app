@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import MainTemplate from "components/templates/MainTemplate";
+import WelcomePage from "views/WelcomePage";
 import AuthPage from "views/AuthPage";
 import About from "views/About";
 import Contact from "views/Contact";
@@ -10,7 +11,8 @@ export default function UnauthenticatedApp() {
   return (
     <MainTemplate>
       <Routes>
-        <Route exact path="/" element={<AuthPage />} />
+        <Route exact path="/" element={<WelcomePage />} />
+        <Route exact path="/auth" element={<AuthPage />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route path="/user/confirm" element={<ConfirmUser />} />
