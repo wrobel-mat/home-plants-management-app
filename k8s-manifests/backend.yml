@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: vancoricomplex/home-jungle-backend-prod:0.2.4
+        image: vancoricomplex/home-jungle-backend-prod:0.2.5
         ports:
         - containerPort: 8080
         env:
