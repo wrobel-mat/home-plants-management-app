@@ -16,7 +16,7 @@ public class UserReadModel {
         this.email = user.getEmail();
         this.name = user.getName();
         this.dateCreated = user.getDateCreated();
-        this.plantsCount = user.getPlants().size();
+        this.plantsCount = user.getPlants() == null ? 0 : user.getPlants().size();
         this.role = user.getRole();
     }
 
