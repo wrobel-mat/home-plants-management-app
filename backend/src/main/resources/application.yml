@@ -57,7 +57,7 @@ app:
   gcloud:
     project-id: ${GCLOUD_PROJECT_ID}
     bucket-name: ${GCLOUD_BUCKET_NAME}
-    sign-url-duration-days: ${GCLOUD_SIGN_URL_DURATION_DAYS}
+    sign-url-duration-days: ${GCLOUD_SIGN_URL_DURATION_DAYS:1}
   domain:
     uri-prefix: ${DOMAIN_URI_PREFIX}
     name: ${DOMAIN_NAME}
