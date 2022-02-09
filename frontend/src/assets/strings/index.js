@@ -221,7 +221,12 @@ const strings = new LocalizedStrings({
       title: "About"
     },
     contactPage: {
-      title: "Contact"
+      title: "Contact",
+      createdBy: "Created by",
+      myName: "Mat Wrobel",
+      contactInfo: "Contact details",
+      email: "E-mail address: ",
+      phoneNumber: "Phone number: "
     },
     timelinePage: {
       title: "My history"
@@ -479,7 +484,12 @@ const strings = new LocalizedStrings({
       title: "O stronie"
     },
     contactPage: {
-      title: "Kontakt"
+      title: "Kontakt",
+      createdBy: "Autor",
+      myName: "Mateusz Wróbel",
+      contactInfo: "Dane kontaktowe",
+      email: "Adres e-mail: ",
+      phoneNumber: "Tel.: "
     },
     timelinePage: {
       title: "Moja historia"

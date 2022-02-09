@@ -22,6 +22,8 @@ import { ReactComponent as AirPurification } from "assets/icons/air.svg";
 import { ReactComponent as PetToxicity } from "assets/icons/pets.svg";
 import { ReactComponent as PlantName } from "assets/icons/id-card.svg";
 import { ReactComponent as Sepecies } from "assets/icons/species.svg";
+import { ReactComponent as LinkedIn } from "assets/icons/linkedin.svg";
+import { ReactComponent as GitHub } from "assets/icons/github.svg";
 import "./index.css";
 
 export const envelopeIcon = (
@@ -150,3 +152,5 @@ export const airPurificationIcon = <AirPurification className="svg" />;
 export const petToxicityIcon = <PetToxicity className="svg" />;
 export const plantNameIcon = <PlantName className="svg" />;
 export const speciesIcon = <Sepecies className="svg" />;
+export const linkedinIcon = <LinkedIn className="svg" />;
+export const githubIcon = <GitHub className="svg" />;
