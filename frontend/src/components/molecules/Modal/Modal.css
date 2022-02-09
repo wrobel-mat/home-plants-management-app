@@ -1,7 +1,6 @@
 .Modal__Content {
     background-color: white;
     display: flex;
-    flex-basis: 40%;
     flex-direction: column;
     height: auto;
     max-height: 80vh;
@@ -98,5 +97,54 @@
     font-weight: var(--font-weight-light);
     line-height: var(--line-height-normal);
     margin: 12px 0 24px;
-    text-align: center;
+    text-align: justify;
+}
+
+@media screen and (max-width: 1112px) {
+    .Modal__Content {
+        max-width: 50%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .Modal__Content {
+        max-width: 60%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .Modal__Content {
+        max-width: 70%;
+    }
+    .modal-content-header {
+        font-size: var(--font-size-l);
+        line-height: var(--line-height-l);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .Modal__Content {
+        max-width: 80%;
+    }
+    .modal-content-header {
+        font-size: var(--font-size-mm);
+        line-height: var(--line-height-m);
+        margin: 0 0 12px;
+    }
+    .modal-content-top-section {
+        min-height: 36px;
+    }
+    .modal-content-top-section-btn {
+        font-size: var(--font-size-mm);
+    }
+    .modal-message {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-sm);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Modal__Content {
+        max-width: 90%;
+    }
 }

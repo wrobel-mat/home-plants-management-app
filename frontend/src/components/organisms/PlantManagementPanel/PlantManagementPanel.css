@@ -66,3 +66,40 @@
 .plant-panel-heading-btn:hover .plant-panel-btn-tooltip {
     opacity: 1;
 }
+
+@media screen and (max-width: 800px) {
+    .plant-name {
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-m);
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .plant-name {
+        font-size: var(--font-size-mm);
+        line-height: var(--line-height-m);
+    }
+    .plant-species {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+    .plant-panel-heading-btn {
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-m);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .plant-name {
+        font-size: var(--font-size-normal);
+        line-height: var(--line-height-normal);
+    }
+    .plant-species {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+    .plant-panel-heading-btn {
+        font-size: var(--font-size-mm);
+        line-height: var(--line-height-mm);
+    }
+}

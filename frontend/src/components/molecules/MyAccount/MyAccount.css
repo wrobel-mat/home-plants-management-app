@@ -47,3 +47,43 @@
     display: flex;
     flex: 3;
 }
+
+@media screen and (max-width: 800px) {
+    .myaccount-data-section-list-item-name {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-sm);
+    }
+    .myaccount-data-section-list-item-value {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-sm);
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .myaccount-data-section-list {
+        flex-direction: column;
+    }
+    .myaccount-data-section-list > div {
+        flex: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .myaccount-data-section-icon {
+        margin: 0 24px 0 8px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .myaccount-data-section-icon {
+        margin: 0 12px 0 4px;
+    }
+    .myaccount-data-section-list-item-name {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+    .myaccount-data-section-list-item-value {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+}

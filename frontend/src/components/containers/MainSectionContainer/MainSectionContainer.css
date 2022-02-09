@@ -3,3 +3,16 @@
     padding: var(--spacing-l) 4px;
     width: 70vw;
 }
+@media screen and (max-width: 640px) {
+    .main-section-container {
+        padding: var(--spacing-m) 4px;
+        width: 80vw;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main-section-container {
+        padding: var(--spacing-s) 4px;
+        width: 90vw;
+    }
+}

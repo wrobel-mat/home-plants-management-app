@@ -39,7 +39,7 @@
     display: flex;
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-heavy);
-    height: 69%;
+    height: 67%;
     justify-content: center;
     line-height: var(--line-height-normal);
     width: 98%;
@@ -116,6 +116,7 @@
     color: var(--color-anthracite);
     cursor: default;
     display: flex;
+    height: 15%;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-light);
     justify-content: center;
@@ -128,6 +129,7 @@
 
 .plant-item-button-wrapper {
     flex-basis: 33.33333%;
+    height: 96%;
     padding: 3px;
 }
 
@@ -138,10 +140,11 @@
     color: var(--color-anthracite);
     cursor: pointer;
     display: flex;
-    font-size: var(--font-size-xs);
+    height: 100%;
+    font-size: 0.6rem;
     font-weight: 440;
     justify-content: center;
-    line-height: var(--line-height-xs);
+    line-height: 0.75rem;
     margin: 0;
     overflow: visible;
     padding: 8px 0;
@@ -170,10 +173,11 @@
     background-color: var(--color-anthracite-light);
     bottom: 124%;
     display: flex;
-    font-size: var(--font-size-xs);
+    height: 100%;
+    font-size: 0.6rem;
     font-weight: 440;
     justify-content: center;
-    line-height: var(--line-height-xs);
+    line-height: 0.75rem;
     padding: 10px 12px;
     position: absolute;
     transition: opacity 0.2s ease;
@@ -216,4 +220,18 @@
 
 .plant-item-container:hover .plant-item-name > a {
     opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+    .plant-item-wrapper {
+        flex-basis: 49%;
+        max-width: 49%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .plant-item-wrapper {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
 }

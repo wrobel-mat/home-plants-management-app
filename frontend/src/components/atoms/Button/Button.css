@@ -61,3 +61,26 @@
     font-size: var(--font-size-m);
     margin-right: 8px;
 }
+
+@media screen and (max-width: 640px) {
+    .btn-text {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-sm);
+    }
+    .btn-icon {
+        font-size: var(--font-size-mm);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .btn-text {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .btn-icon {
+        font-size: var(--font-size-normal);
+    }
+}

@@ -54,3 +54,20 @@
 .plant-img-edit-btn:hover .plant-img-edit-btn-tooltip {
     opacity: 1;
 }
+
+@media screen and (max-width: 800px) {
+    .plant-img-container {
+        flex-basis: 100%;
+        padding: 12px 0;
+    }
+    .plant-img-edit-btn {
+        right: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .plant-img-edit-btn {
+        font-size: var(--font-size-mm);
+        line-height: var(--line-height-m);
+    }
+}

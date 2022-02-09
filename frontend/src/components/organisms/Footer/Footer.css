@@ -62,3 +62,66 @@
 .footer-lang-btn.active {
     font-weight: 600;
 }
+
+@media screen and (max-width: 640px) {
+    .footer {
+        padding: var(--spacing-s);
+    }
+
+    .footer-list-item {
+        padding: 12px;
+    }
+
+    .footer-link .footer-lang-btn {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+
+    .footer-logo {
+        padding: 12px 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        padding: 8px;
+    }
+
+    .footer-list-item {
+        padding: 8px;
+    }
+
+    .footer-link {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+
+    .footer-lang-btn {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+
+    .footer-logo {
+        padding: 8px 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer {
+        padding: 4px;
+    }
+
+    .footer-link {
+        font-size: 0.5rem;
+        line-height: 0.75rem;
+    }
+
+    .footer-lang-btn {
+        font-size: 0.5rem;
+        line-height: 0.75rem;
+    }
+
+    .footer-logo {
+        padding: 4px 0;
+    }
+}

@@ -36,3 +36,9 @@
 .plant-tab-content {
     margin-top: 12px;
 }
+
+@media screen and (max-width: 800px) {
+    .plant-tabs-container {
+        flex-basis: 100%;
+    }
+}

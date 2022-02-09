@@ -10,3 +10,28 @@
     text-align-last: center;
     width: 100%;
 }
+
+@media screen and (max-width: 640px) {
+    .welcome-page-content-container > p {
+        font-size: var(--font-size-normal);
+        line-height: var(--line-height-normal);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .welcome-page-content-container {
+        padding: 12px 0 6px;
+    }
+
+    .welcome-page-content-container > p {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-sm);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .welcome-page-content-container > p {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-xs);
+    }
+}
