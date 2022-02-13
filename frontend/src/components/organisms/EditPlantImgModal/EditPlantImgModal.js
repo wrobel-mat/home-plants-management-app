@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import { useAuth } from "providers/AuthProvider";
 import { useUpdatePlantImgMutation } from "store/api/plantsApi";
+import imageCompression from "browser-image-compression";
 import Modal from "components/molecules/Modal/Modal";
 import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";
@@ -17,14 +18,26 @@ export default function EditPlantImgModal({ isOpen, toggleIsOpen, plantId }) {
   const { authFallback } = useAuth();
 
   const submitEditPlantImg = async ({ plantImg, setError }) => {
+    let newImage;
     if (!imgIsValid(plantImg[0])) {
-      setError("plantImg", {
-        type: "manual",
-        message: strings.plant.formMessages.imgSize,
-      });
+      const compressionOptions = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      }
+      try {
+        newImage = await imageCompression(plantImg[0], compressionOptions);
+      } catch (e) {
+        console.log("unable to compress plant image");
+        setError("plantImg", {
+          type: "manual",
+          message: strings.plant.formMessages.imgSize,
+        });
+      }
     } else {
+      newImage = plantImg[0];
       const data = new FormData();
-      data.append("plant_img", plantImg[0]);
+      data.append("plant_img", newImage);
       try {
         await updatePlantImg({
           id: plantId,

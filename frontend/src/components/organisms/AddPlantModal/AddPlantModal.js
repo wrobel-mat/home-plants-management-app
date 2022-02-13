@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { useAddPlantMutation } from "store/api/plantsApi";
 import { useLocalizedStrings } from "providers/LocalizedStringsProvider";
 import { useAuth } from "providers/AuthProvider";
+import imageCompression from "browser-image-compression";
 import Modal from "components/molecules/Modal/Modal";
 import Form from "components/molecules/Form/Form";
 import Input from "components/molecules/Form/Input";
@@ -100,12 +101,25 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
     newPlantImg,
     setError,
   }) => {
+    let plantImage;
     if (!imgIsValid(newPlantImg[0])) {
-      setError(FORM_FIELDS.plantImg, {
-        type: "manual",
-        message: strings.plant.formMessages.imgSize,
-      });
-      return;
+      const compressionOptions = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      }
+      try {
+        plantImage = await imageCompression(newPlantImg[0], compressionOptions);
+      } catch (e) {
+        console.log("unable to compress plant image");
+        setError(FORM_FIELDS.plantImg, {
+          type: "manual",
+          message: strings.plant.formMessages.imgSize,
+        });
+        return;
+      }
+    } else {
+      plantImage = newPlantImg[0];
     }
     const newPlant = {
       name: newPlantName,
@@ -124,7 +138,7 @@ export default function AddPlantModal({ isOpen, toggleIsOpen }) {
       airPurification: newPlantAirPurification != 0,
       toxicity: newPlantToxicity != 0
     };
-    const data = getFormData(newPlant, newPlantImg[0]);
+    const data = getFormData(newPlant, plantImage);
     try {
       await addPlant(data).unwrap();
       reloadUser();
